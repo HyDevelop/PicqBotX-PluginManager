@@ -54,10 +54,6 @@ public class Launcher
         // 注册插件
         initializePlugins(bot);
 
-        // TODO: 注册事件
-
-        // TODO: 注册指令
-
         try
         {
             bot.startBot();
@@ -104,6 +100,10 @@ public class Launcher
 
         pluginManager = new PluginManager(pluginRootDir, bot);
         pluginManager.enableAllPlugins();
+
+        // 注册事件和指令
+        pluginManager.registerAllCommands(bot);
+        pluginManager.registerAllEvents(bot);
 
         return false;
     }
