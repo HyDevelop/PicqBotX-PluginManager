@@ -36,7 +36,10 @@ public abstract class IcqPlugin
      * 插件属性
      * @return 插件属性对象
      */
-    public abstract PluginProperties properties();
+    public PluginProperties properties()
+    {
+        return new PluginProperties(commands(), listeners());
+    }
 
     /**
      * 这个插件要注册的指令
@@ -69,5 +72,14 @@ public abstract class IcqPlugin
         this.dataFolder = dataFolder;
         this.classLoader = classLoader;
         this.logger = getBot().getLogger();
+    }
+
+    public final void setEnabled(final boolean enabled)
+    {
+        if (this.enabled == enabled) return;
+
+        this.enabled = enabled;
+        if (this.enabled) onEnable();
+        else onDisable();
     }
 }
