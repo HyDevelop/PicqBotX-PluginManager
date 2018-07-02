@@ -45,6 +45,7 @@ public class PluginManager
             try
             {
                 IcqPlugin plugin = pluginLoader.loadPlugin(jarFile);
+                pluginLoader.enablePlugin(plugin);
 
                 System.out.println(plugin);
             }
