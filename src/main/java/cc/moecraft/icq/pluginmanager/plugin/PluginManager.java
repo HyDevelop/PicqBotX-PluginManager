@@ -83,4 +83,15 @@ public class PluginManager
             }
         }
     }
+
+    public void registerAllEvents(PicqBotX bot)
+    {
+        for (IcqPlugin plugin : enabledPlugins.values())
+        {
+            for (IcqListener listener : plugin.listeners())
+            {
+                bot.getEventManager().registerListener(listener);
+            }
+        }
+    }
 }
