@@ -34,4 +34,18 @@ public class PluginManager
         pluginLoader = new PluginLoader(bot);
     }
 
+
+    public ArrayList<File> getJarFiles()
+    {
+        File[] allFiles = pluginRootPath.listFiles();
+        ArrayList<File> jarFiles = new ArrayList<>();
+
+        assert allFiles != null;
+        for (File file : allFiles)
+        {
+            if (file.getName().endsWith(".jar")) jarFiles.add(file);
+        }
+
+        return jarFiles;
+    }
 }
