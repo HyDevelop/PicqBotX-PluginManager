@@ -1,5 +1,6 @@
 package cc.moecraft.icq.pluginmanager.plugin;
 
+import cc.moecraft.icq.PicqBotX;
 import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginException;
 import com.google.common.io.ByteStreams;
 import org.apache.commons.lang3.Validate;
@@ -35,7 +36,7 @@ final class PluginClassLoader extends URLClassLoader
     private IcqPlugin pluginInit;
     private IllegalStateException pluginState;
 
-    PluginClassLoader(PluginLoader loader, ClassLoader parent, PluginYmlProperties pluginYmlProperties, File dataFolder, File file) 
+    PluginClassLoader(PluginLoader loader, ClassLoader parent, PluginYmlProperties pluginYmlProperties, File dataFolder, File file)
             throws IOException, InvalidPluginException
     {
         super(new URL[] {file.toURI().toURL()}, parent);
@@ -74,6 +75,14 @@ final class PluginClassLoader extends URLClassLoader
             }
 
             plugin = pluginClass.newInstance();
+
+            plugin.setLoader(loader);
+            plugin.setBot(loader.getBot());
+            plugin.setDescription(pluginYmlProperties);
+            plugin.setDataFolder(dataFolder);
+            plugin.setFile(file);
+            plugin.setClassLoader(this);
+            plugin.setLogger(loader.getBot().getLogger());
         }
         catch (IllegalAccessException ex)
         {
