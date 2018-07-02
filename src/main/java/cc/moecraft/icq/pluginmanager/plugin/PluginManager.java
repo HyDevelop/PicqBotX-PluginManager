@@ -1,6 +1,8 @@
 package cc.moecraft.icq.pluginmanager.plugin;
 
 import cc.moecraft.icq.PicqBotX;
+import cc.moecraft.icq.command.interfaces.IcqCommand;
+import cc.moecraft.icq.event.IcqListener;
 import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginException;
 import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginYmlException;
 import com.google.common.io.PatternFilenameFilter;
@@ -69,5 +71,16 @@ public class PluginManager
         }
 
         return jarFiles;
+    }
+
+    public void registerAllCommands(PicqBotX bot)
+    {
+        for (IcqPlugin plugin : enabledPlugins.values())
+        {
+            for (IcqCommand command : plugin.commands())
+            {
+                bot.getCommandManager().registerCommand(command);
+            }
+        }
     }
 }
