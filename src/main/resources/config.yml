@@ -1,0 +1,48 @@
+# ############################ #
+# PicqBotX 插件启动器 配置文件 #
+#     作者: Hykilpikonna       #
+# 对应版本: 1.0-SNAPSHOT       #
+# ############################ #
+
+# 连接设置
+ConnectionSettings:
+
+  # 发送地址
+  PostURL: '127.0.0.1'
+
+  # 发送地址的端口
+  PostPort: 31091
+
+  # 监听端口 (HTTP服务器端口)
+  ListeningPort: 31092
+
+  # 是否输出Debug消息
+  Debug: false
+
+# 指令设置
+CommandSettings:
+
+  # 是否启动指令功能
+  Enable: true
+
+  # 指令前缀
+  Prefixes:
+  - 'bot -'
+  - '!'
+  - '/'
+
+  # 两个插件同时注册一个指令的话怎么办
+  #   ENABLE_LAST    : 启用最后注册的
+  #   ENABLE_ALL     : 启用所有
+  # 如果冲突的话, 可以用 /<插件名>:<指令> 来执行某个插件的指令
+  ConflictOperation: ENABLE_ALL
+
+# 插件加载设置
+PluginLoaderSettings:
+
+  # 是否启动插件加载
+  Enable: true
+
+  # 插件目录
+  PluginDir: './Plugins/'
+
