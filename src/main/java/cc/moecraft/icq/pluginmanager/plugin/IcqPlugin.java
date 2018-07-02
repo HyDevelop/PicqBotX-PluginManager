@@ -59,4 +59,15 @@ public abstract class IcqPlugin
     {
         logger.log(String.format("%s插件 %s 已卸载!", AnsiColor.YELLOW, description.getName()));
     }
+
+    final void init(PluginLoader loader, PicqBotX bot, PluginYmlProperties description, File dataFolder, File file, ClassLoader classLoader)
+    {
+        this.loader = loader;
+        this.bot = bot;
+        this.file = file;
+        this.description = description;
+        this.dataFolder = dataFolder;
+        this.classLoader = classLoader;
+        this.logger = getBot().getLogger();
+    }
 }
