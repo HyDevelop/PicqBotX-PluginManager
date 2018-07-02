@@ -24,4 +24,20 @@ public class PluginYmlProperties
 
     // 主类路径
     private String mainPath;
+
+    /**
+     * 从文件输入读取YML内容
+     * @param inputStream 文件输入
+     * @throws InvalidPluginYmlException Plugin.yml无效
+     */
+    public PluginYmlProperties(InputStream inputStream) throws InvalidPluginYmlException
+    {
+        Map<String, String> values = new Yaml().load(inputStream);
+
+        if (!values.containsKey("main")) throw new InvalidPluginYmlException("Plugin.yml内没有定义main类路径");
+        if (!values.containsKey("name")) throw new InvalidPluginYmlException("Plugin.yml内没有定义插件名");
+
+        mainPath = values.get("main");
+        name = values.get("name");
+    }
 }
