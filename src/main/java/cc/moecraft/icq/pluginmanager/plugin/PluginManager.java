@@ -34,6 +34,28 @@ public class PluginManager
         pluginLoader = new PluginLoader(bot);
     }
 
+    public void enableAllPlugins()
+    {
+        ArrayList<File> jarFiles = getJarFiles();
+
+        for (File jarFile : jarFiles)
+        {
+            try
+            {
+                IcqPlugin plugin = pluginLoader.loadPlugin(jarFile);
+
+                System.out.println(plugin);
+            }
+            catch (InvalidPluginException e)
+            {
+                e.printStackTrace();
+            }
+            catch (InvalidPluginYmlException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public ArrayList<File> getJarFiles()
     {
