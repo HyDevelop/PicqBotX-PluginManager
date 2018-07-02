@@ -47,6 +47,8 @@ public class PluginManager
                 IcqPlugin plugin = pluginLoader.loadPlugin(jarFile);
                 pluginLoader.enablePlugin(plugin);
 
+                enabledPlugins.put(plugin.getDescription().getName(), plugin);
+
                 System.out.println(plugin);
             }
             catch (InvalidPluginException e)
