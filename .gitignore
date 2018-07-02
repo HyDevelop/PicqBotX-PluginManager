@@ -1,3 +1,4 @@
 .idea/*
 PicqBotX-PluginManager.iml
 .idea/vcs.xml
+*.log
