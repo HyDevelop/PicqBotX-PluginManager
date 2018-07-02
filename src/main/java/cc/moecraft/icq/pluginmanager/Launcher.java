@@ -52,6 +52,7 @@ public class Launcher
             bot.enableCommandManager(false, config.getStringList("CommandSettings.Prefixes").toArray(new String[0]));
 
         // 注册插件
+        initializePlugins(bot);
 
         // TODO: 注册事件
 
@@ -93,5 +94,17 @@ public class Launcher
         config.initialize();
 
         return true;
+    }
+
+    public static boolean initializePlugins(PicqBotX bot)
+    {
+        File pluginRootDir = new File("./plugins/");
+
+        if (!pluginRootDir.isDirectory()) FileUtils.createDir(pluginRootDir.getPath());
+
+        pluginManager = new PluginManager(pluginRootDir, bot);
+        pluginManager.enableAllPlugins();
+
+        return false;
     }
 }
