@@ -37,6 +37,7 @@ public class Launcher
 
     public static void main(String[] args) throws IllegalAccessException, InstantiationException
     {
+        initializeConfig();
 
         bot = new PicqBotX(
                 config.getString("ConnectionSettings.PostURL"),
@@ -70,5 +71,27 @@ public class Launcher
         {
             e.printStackTrace();
         }
+    }
+
+    public static boolean initializeConfig()
+    {
+        config = new LauncherConfig();
+
+        if (!config.getConfigFile().exists())
+        {
+            try
+            {
+                config.createFromResources(Launcher.class);
+            }
+            catch (IOException e)
+            {
+                logger.error("错误: JAR包已损坏或运行环境错误, 无法找到yml文件");
+                return false;
+            }
+        }
+
+        config.initialize();
+
+        return true;
     }
 }
