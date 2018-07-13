@@ -56,10 +56,12 @@ public class Launcher
                 config.getString("ConnectionSettings.PostURL"),
                 config.getInt("ConnectionSettings.PostPort"),
                 config.getInt("ConnectionSettings.ListeningPort"),
-                config.getBoolean("ConnectionSettings.Debug")
+                debug
         );
 
-        logger = getBot().getLogger();
+        loggerInstanceManager = bot.getLoggerInstanceManager();
+
+        logger = loggerInstanceManager.getLoggerInstance("Launcher", debug);
 
         if (config.getBoolean("CommandSettings.Enable"))
             bot.enableCommandManager(false, config.getStringList("CommandSettings.Prefixes").toArray(new String[0]));
