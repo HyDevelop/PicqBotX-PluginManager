@@ -1,8 +1,10 @@
 package cc.moecraft.icq.pluginmanager.plugin;
 
 import cc.moecraft.icq.PicqBotX;
+import cc.moecraft.icq.pluginmanager.Launcher;
 import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginException;
 import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginYmlException;
+import cc.moecraft.logger.format.AnsiColor;
 import lombok.Data;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -184,7 +186,7 @@ public class PluginLoader
 
         if (!plugin.isEnabled())
         {
-            plugin.getLogger().log("正在加载 " + plugin.getDescription().getName() + " 插件");
+            plugin.getLogger().log(AnsiColor.YELLOW + "插件 " + plugin.getDescription().getName() + " 正在加载 ...");
 
             PluginClassLoader pluginLoader = (PluginClassLoader) plugin.getClassLoader();
 
@@ -212,7 +214,7 @@ public class PluginLoader
 
         if (plugin.isEnabled())
         {
-            String message = String.format("正在卸载 %s 插件", plugin.getDescription().getName());
+            String message = String.format("%s正在卸载 %s 插件 ...", AnsiColor.YELLOW, plugin.getDescription().getName());
             plugin.getLogger().log(message);
 
             ClassLoader classLoader = plugin.getClassLoader();
