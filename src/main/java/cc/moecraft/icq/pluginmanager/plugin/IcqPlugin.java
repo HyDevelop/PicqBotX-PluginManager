@@ -3,8 +3,9 @@ package cc.moecraft.icq.pluginmanager.plugin;
 import cc.moecraft.icq.PicqBotX;
 import cc.moecraft.icq.command.interfaces.IcqCommand;
 import cc.moecraft.icq.event.IcqListener;
-import cc.moecraft.logger.AnsiColor;
-import cc.moecraft.logger.DebugLogger;
+import cc.moecraft.icq.pluginmanager.Launcher;
+import cc.moecraft.logger.HyLogger;
+import cc.moecraft.logger.format.AnsiColor;
 import lombok.Data;
 
 import java.io.File;
@@ -21,7 +22,7 @@ import java.io.File;
 @Data
 public abstract class IcqPlugin
 {
-    private DebugLogger logger;
+    private HyLogger logger;
 
     private PicqBotX bot;
 
