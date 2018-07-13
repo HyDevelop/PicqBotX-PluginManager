@@ -67,7 +67,7 @@ public class Launcher
             bot.enableCommandManager(false, config.getStringList("CommandSettings.Prefixes").toArray(new String[0]));
 
         // 注册插件
-        initializePlugins(bot);
+        if (config.getBoolean("PluginLoaderSettings.Enable")) initializePlugins(bot);
 
         try
         {
