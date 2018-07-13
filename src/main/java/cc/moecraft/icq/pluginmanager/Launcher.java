@@ -126,9 +126,12 @@ public class Launcher
         pluginManager.enableAllPlugins();
 
         // 注册事件和指令
-        pluginManager.registerAllCommands(bot);
+        if (config.getBoolean("CommandSettings.Enable")) pluginManager.registerAllCommands(bot);
         pluginManager.registerAllEvents(bot);
 
-        return false;
+        logger.log(String.format("%s插件全部加载完成! %s(总 %s ms)", AnsiColor.GREEN, AnsiColor.YELLOW, Math.round(logger.timing.getMilliseconds() * 100d) / 100d));
+        logger.timing.clear();
+
+        return true;
     }
 }
