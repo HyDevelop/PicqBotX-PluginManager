@@ -114,6 +114,14 @@ public class Launcher
 
         File pluginRootDir = new File(config.getString("PluginLoaderSettings.PluginDir"));
 
+        logger.log(AnsiColor.GREEN + "已找到插件存储路径: " + pluginRootDir.getAbsolutePath());
+
+        if (!pluginRootDir.isDirectory())
+        {
+            FileUtils.createDir(pluginRootDir.getPath());
+            logger.log(AnsiColor.RED + "插件路径不存在, 已自动创建");
+        }
+
         pluginManager = new PluginManager(pluginRootDir, bot);
         pluginManager.enableAllPlugins();
 
