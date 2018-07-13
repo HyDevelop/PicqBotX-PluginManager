@@ -79,7 +79,7 @@ public class Launcher
             logger.error("可能是因为你没有开酷Q.");
             logger.error("也可能是config.yml配置文件里HTTP发送地址写错了");
         }
-        catch (HttpServerStartFailedException | VersionIncorrectException e)
+        catch (HttpServerStartFailedException | VersionIncorrectException | InvalidSendingURLException e)
         {
             e.printStackTrace();
         }
