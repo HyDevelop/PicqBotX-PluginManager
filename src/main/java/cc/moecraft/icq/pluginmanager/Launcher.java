@@ -109,9 +109,8 @@ public class Launcher
 
     public static boolean initializePlugins(PicqBotX bot)
     {
-        File pluginRootDir = new File("./plugins/");
 
-        if (!pluginRootDir.isDirectory()) FileUtils.createDir(pluginRootDir.getPath());
+        File pluginRootDir = new File(config.getString("PluginLoaderSettings.PluginDir"));
 
         pluginManager = new PluginManager(pluginRootDir, bot);
         pluginManager.enableAllPlugins();
