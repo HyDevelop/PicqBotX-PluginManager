@@ -50,6 +50,8 @@ public class Launcher
     {
         initializeConfig();
 
+        debug = config.getBoolean("ConnectionSettings.Debug");
+
         bot = new PicqBotX(
                 config.getString("ConnectionSettings.PostURL"),
                 config.getInt("ConnectionSettings.PostPort"),
