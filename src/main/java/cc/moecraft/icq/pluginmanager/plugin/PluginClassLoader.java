@@ -75,14 +75,7 @@ final class PluginClassLoader extends URLClassLoader
             }
 
             plugin = pluginClass.newInstance();
-
-            plugin.setLoader(loader);
-            plugin.setBot(loader.getBot());
-            plugin.setDescription(pluginYmlProperties);
-            plugin.setDataFolder(dataFolder);
-            plugin.setFile(file);
-            plugin.setClassLoader(this);
-            plugin.setLogger(loader.getBot().getLogger());
+            plugin.init(loader, loader.getBot(), pluginYmlProperties, dataFolder, file, this);
         }
         catch (IllegalAccessException ex)
         {
