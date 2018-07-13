@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.github.HyDevelop</groupId>
             <artifactId>PicqBotX</artifactId>
-            <version>1.0.4.8</version>
+            <version>1.2.0.371</version>
         </dependency>
 
         <dependency>
