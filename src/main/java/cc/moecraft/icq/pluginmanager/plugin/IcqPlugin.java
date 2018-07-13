@@ -74,7 +74,23 @@ public abstract class IcqPlugin
         if (this.enabled == enabled) return;
 
         this.enabled = enabled;
-        if (this.enabled) onEnable();
-        else onDisable();
+        if (this.enabled)
+        {
+            onEnable();
+
+            logger.log(String.format("%s插件 %s 声明了 %s 个指令和 %s 个监听器!",
+                    AnsiColor.GREEN,
+                    getDescription().getName(),
+                    commands().length,
+                    listeners().length));
+
+            logger.log(String.format("%s插件 %s 已加载!", AnsiColor.GREEN, description.getName()));
+        }
+        else
+        {
+            onDisable();
+
+            logger.log(String.format("%s插件 %s 已卸载!", AnsiColor.GREEN, description.getName()));
+        }
     }
 }
