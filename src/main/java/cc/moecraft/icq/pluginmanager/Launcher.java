@@ -2,10 +2,15 @@ package cc.moecraft.icq.pluginmanager;
 
 import cc.moecraft.icq.PicqBotX;
 import cc.moecraft.icq.exceptions.HttpServerStartFailedException;
+import cc.moecraft.icq.exceptions.InvalidSendingURLException;
 import cc.moecraft.icq.exceptions.VersionIncorrectException;
 import cc.moecraft.icq.pluginmanager.plugin.PluginLoader;
 import cc.moecraft.icq.pluginmanager.plugin.PluginManager;
-import cc.moecraft.logger.DebugLogger;
+import cc.moecraft.logger.HyLogger;
+import cc.moecraft.logger.LoggerInstanceManager;
+import cc.moecraft.logger.environments.ConsoleColoredEnv;
+import cc.moecraft.logger.environments.FileEnv;
+import cc.moecraft.logger.format.AnsiColor;
 import cc.moecraft.yaml.utils.FileUtils;
 import com.xiaoleilu.hutool.http.HttpException;
 import lombok.Getter;
@@ -24,13 +29,13 @@ import java.io.IOException;
 public class Launcher
 {
     @Getter
-    public static LauncherConfig config;
+    private static LauncherConfig config;
 
     @Getter
-    public static PicqBotX bot;
+    private static PicqBotX bot;
 
     @Getter
-    public static DebugLogger logger;
+    private static LoggerInstanceManager loggerInstanceManager;
 
     @Getter
     public static PluginManager pluginManager;
