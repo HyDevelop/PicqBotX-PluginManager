@@ -47,8 +47,15 @@ public class PluginManager
         HyLogger logger = Launcher.getLoggerInstanceManager().getLoggerInstance(CYAN + "Launcher", Launcher.isDebug());
         logger.timing.init();
 
-        for (File jarFile : jarFiles)
+        logger.log(GREEN + "路径下一共有 " + jarFiles.size() + " 个插件JAR");
+        logger.log(YELLOW + "开始加载插件 ...");
+
+        for (int i = 0; i < jarFiles.size(); i++)
         {
+            File jarFile = jarFiles.get(i);
+
+            logger.log(YELLOW + "正在加载JAR: " + jarFile.getName() + " (" + RED + i + YELLOW + "/" + jarFiles.size() + YELLOW + ")");
+
             try
             {
                 IcqPlugin plugin = pluginLoader.loadPlugin(jarFile);
@@ -56,17 +63,20 @@ public class PluginManager
 
                 enabledPlugins.put(plugin.getDescription().getName(), plugin);
 
-                System.out.println(plugin);
+                logger.log(String.format("%sJAR: %s 加载完成! %s(%s ms)", GREEN, jarFile.getName(), YELLOW,
+                        Math.round(logger.timing.getMilliseconds() * 100d) / 100d));
             }
-            catch (InvalidPluginException e)
+            catch (Exception e)
             {
                 e.printStackTrace();
+                logger.log(String.format("%sJAR: %s 加载失败! %s(%s ms)", RED, jarFile.getName(), YELLOW,
+                    Math.round(logger.timing.getMilliseconds() * 100d) / 100d));
             }
-            catch (InvalidPluginYmlException e)
-            {
-                e.printStackTrace();
-            }
+            
+            logger.timing.reset();
         }
+
+        logger.timing.clear();
     }
 
     public ArrayList<File> getJarFiles()
