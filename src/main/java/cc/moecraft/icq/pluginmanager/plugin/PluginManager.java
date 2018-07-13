@@ -3,8 +3,11 @@ package cc.moecraft.icq.pluginmanager.plugin;
 import cc.moecraft.icq.PicqBotX;
 import cc.moecraft.icq.command.interfaces.IcqCommand;
 import cc.moecraft.icq.event.IcqListener;
+import cc.moecraft.icq.pluginmanager.Launcher;
 import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginException;
 import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginYmlException;
+import cc.moecraft.logger.HyLogger;
+import cc.moecraft.logger.format.AnsiColor;
 import com.google.common.io.PatternFilenameFilter;
 import lombok.Data;
 
@@ -12,6 +15,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static cc.moecraft.logger.format.AnsiColor.*;
 
 /**
  * 此类由 Hykilpikonna 在 2018/07/02 创建!
@@ -39,6 +44,8 @@ public class PluginManager
     public void enableAllPlugins()
     {
         ArrayList<File> jarFiles = getJarFiles();
+        HyLogger logger = Launcher.getLoggerInstanceManager().getLoggerInstance(CYAN + "Launcher", Launcher.isDebug());
+        logger.timing.init();
 
         for (File jarFile : jarFiles)
         {
