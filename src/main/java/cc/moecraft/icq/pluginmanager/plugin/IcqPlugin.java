@@ -66,7 +66,7 @@ public abstract class IcqPlugin
         this.description = description;
         this.dataFolder = dataFolder;
         this.classLoader = classLoader;
-        this.logger = getBot().getLogger();
+        this.logger = Launcher.getLoggerInstanceManager().getLoggerInstance(description.getName(), Launcher.isDebug());
     }
 
     public final void setEnabled(final boolean enabled)
