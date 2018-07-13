@@ -109,6 +109,8 @@ public class Launcher
 
     public static boolean initializePlugins(PicqBotX bot)
     {
+        logger.timing.init();
+        logger.log(AnsiColor.YELLOW + "开始初始化插件加载器 ...");
 
         File pluginRootDir = new File(config.getString("PluginLoaderSettings.PluginDir"));
 
