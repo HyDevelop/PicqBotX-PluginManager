@@ -54,15 +54,9 @@ public abstract class IcqPlugin
      */
     public abstract IcqListener[] listeners();
 
-    public void onEnable()
-    {
-        logger.log(String.format("%s插件 %s 已加载!", AnsiColor.GREEN, description.getName()));
-    }
+    public abstract void onEnable();
 
-    public void onDisable()
-    {
-        logger.log(String.format("%s插件 %s 已卸载!", AnsiColor.YELLOW, description.getName()));
-    }
+    public abstract void onDisable();
 
     final void init(PluginLoader loader, PicqBotX bot, PluginYmlProperties description, File dataFolder, File file, ClassLoader classLoader)
     {
