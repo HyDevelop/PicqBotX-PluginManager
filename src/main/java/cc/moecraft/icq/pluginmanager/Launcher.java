@@ -38,7 +38,13 @@ public class Launcher
     private static LoggerInstanceManager loggerInstanceManager;
 
     @Getter
-    public static PluginManager pluginManager;
+    public static HyLogger logger;
+
+    @Getter
+    private static PluginManager pluginManager;
+
+    @Getter
+    private static boolean debug;
 
     public static void main(String[] args) throws IllegalAccessException, InstantiationException
     {
