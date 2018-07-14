@@ -146,3 +146,8 @@ java -jar {JAR文件名}.jar
 echo ##################### 线程已关闭, 正在重启... #####################
 goto loop
 ```
+
+注意: 不要问我`Error: Unable to access jarfile {JAR文件名}.jar`怎么解决, 仔细想想都知道怎么解决嘛...
+
+#### Linux:
+
