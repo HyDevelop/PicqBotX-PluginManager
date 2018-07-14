@@ -148,7 +148,7 @@ ping localhost -n 5 >NUL
 goto loop
 ```
 
-注意: 不要问我`Error: Unable to access jarfile {JAR文件名}.jar`怎么解决, 仔细想想都知道怎么解决嘛...
+把这段存到运行目录的start.bat文件里就行啦! (jar文件名替换成你下载的jar文件名)
 
 #### Linux:
 
@@ -162,3 +162,21 @@ echo "##################### 线程已关闭, 5秒后自动重启... ############
 sleep 5
 done
 ```
+
+把这段存到运行目录的start.sh文件里就行啦! (jar文件名替换成你下载的jar文件名)
+
+### 4. 启动:
+
+#### Windows:
+
+* UI版Windows的话直接点开start.bat就好了!
+* 无UI版的话要cd到当前目录, 然后执行start.bat (真的有人用无UI的Windows么...
+
+注意: 不要问我`Error: Unable to access jarfile {JAR文件名}.jar`怎么解决, 仔细想想都知道怎么解决嘛...
+
+#### Linux:
+
+* 打开控制台
+* 执行 cd {运行目录}
+* 执行 sudo chmod +x start.sh
+* 执行 ./start.sh
