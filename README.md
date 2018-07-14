@@ -152,3 +152,13 @@ goto loop
 
 #### Linux:
 
+```sh
+while true
+do
+
+java -jar {JAR文件名}.jar
+
+echo "##################### 线程已关闭, 5秒后自动重启... #####################"
+sleep 5
+done
+```
