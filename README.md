@@ -9,6 +9,7 @@
 <h5 align="center">
   <a href="#maven">Maven导入</a>&nbsp;&nbsp;
   <a href="#introduction">介绍</a>&nbsp;&nbsp;
+  <a href="#environment">环境</a>&nbsp;&nbsp;
   <a href="#development">开发</a>&nbsp;&nbsp;
   <a href="#license">开源条款</a>
 </h5>  
@@ -31,7 +32,7 @@
 但是这样, 如果一个开发者开发了一套功能, 比如信息查询, <br>
 然后另一个开发者开发了另一套功能, 比如碰数游戏, <br>
 但是如果想让一个机器人实例同时运行这两套功能的话, <br>
-就必须手动合并这两个项目. <br><br>
+就必须手动合并这两个项目. <br>
 但是如果这两个开发者把他们的功能写成这个插件系统的插件的话. <br>
 运行一个插件管理器, 然后把两个构建好的插件JAR都丢到运行目录的Plugins文件夹里, <br>
 就能在一个机器人实例上同时运行两套功能了! <br>
@@ -107,3 +108,19 @@ dependencies {
 #### [其他导入(SBT / Leiningen)](https://jitpack.io/#HyDevelop/PicqBotX-PluginManager/1.0.0)
 
 <br>
+
+<a name="environment"></a>
+配置环境:
+--------
+
+### 1. [配置PicqBotX的环境](https://github.com/HyDevelop/PicqBotX#environment)
+
+### 2. 创建一个运行目录文件夹, 在里面下载构建好的PicqBotX-PluginManager的可执行JAR. (TODO: 这里补个链接)
+
+### 3. 创建批处理或bash文件:
+
+#### Windows:
+
+```bat
+
+```
