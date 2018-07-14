@@ -1,3 +1,5 @@
+<br>
+<br>
 <h1 align="center">
   PicqBotX - Plugin Manager
 </h1>
