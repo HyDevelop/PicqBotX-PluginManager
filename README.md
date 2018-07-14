@@ -115,12 +115,34 @@ dependencies {
 
 ### 1. [配置PicqBotX的环境](https://github.com/HyDevelop/PicqBotX#environment)
 
-### 2. 创建一个运行目录文件夹, 在里面下载构建好的PicqBotX-PluginManager的可执行JAR. (TODO: 这里补个链接)
+### 2. 创建一个运行目录文件夹, 在里面下载构建好的PicqBotX-PluginManager的JAR文件. (TODO: 这里补个链接)
 
-### 3. 创建批处理或bash文件:
+### 3. 创建启动脚本文件:
 
 #### Windows:
 
-```bat
+基础启动:
 
+```bat
+@echo off
+
+title PicqBotX 插件管理服务器
+java -jar {JAR文件名}.jar
+pause
+```
+
+再加一个自动重启和重启次数计数:
+
+```bat
+@echo off 
+set a = -1
+
+:loop
+set /a a += 1
+
+title PicqBotX 插件管理服务器 [重启次数:%a%]
+java -jar {JAR文件名}.jar
+
+echo ##################### 线程已关闭, 正在重启... #####################
+goto loop
 ```
