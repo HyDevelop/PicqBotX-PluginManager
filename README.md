@@ -386,13 +386,16 @@ public class Main extends IcqPlugin
     @Override
     public void onEnable()
     {
-
+        // 加载插件的时候会运行这个方法
+        
+        // 把这句放在最后
+        instance = this;
     }
 
     @Override
     public void onDisable()
     {
-
+        // 卸载插件的时候会运行这个方法
     }
 
     @Override
@@ -410,10 +413,45 @@ public class Main extends IcqPlugin
                 {
                 };
     }
+    
+    private static Main instance;
+    
+    public static Main getInstance()
+    {
+        return instance;
+    }
 }
 ```
 
 ### 4. 添加事件监听器:
 
 * 写一个事件监听器类: [看这里](https://github.com/HyDevelop/PicqBotX#%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6)
-* 
+* 在Main的listeners()方法里添加一个实例
+
+例子:<br>
+
+监听器类 (TestListener.java):
+
+```java
+public class TestListener extends IcqListener
+{
+    @EventHandler
+    public void onMessageEvent(EventMessage event)
+    {
+        Main.getInstance().getLogger().log("收到消息事件! 内容 = " + event.toString());
+    }
+}
+```
+
+主类:
+
+```java
+    @Override
+    public IcqListener[] listeners()
+    {
+        return new IcqListener[]
+                {
+                        new TestListener()
+                };
+    }
+```
