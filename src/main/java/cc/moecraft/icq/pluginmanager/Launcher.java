@@ -50,13 +50,16 @@ public class Launcher
     {
         initializeConfig();
 
-        debug = config.getBoolean("ConnectionSettings.Debug");
+        debug = config.getBoolean("LoggerSettings.Debug");
 
         bot = new PicqBotX(
                 config.getString("ConnectionSettings.PostURL"),
                 config.getInt("ConnectionSettings.PostPort"),
                 config.getInt("ConnectionSettings.ListeningPort"),
-                debug
+                debug,
+                ColorSupportLevel.valueOf(config.getString("LoggerSettings.ColorSupportLevel")),
+                config.getString("LoggerSettings.LogFileRelativePath"),
+                config.getString("LoggerSettings.LogFileName")
         );
 
         loggerInstanceManager = bot.getLoggerInstanceManager();
