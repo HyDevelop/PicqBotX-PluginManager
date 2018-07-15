@@ -93,7 +93,10 @@ public class Launcher
         {
             try
             {
-                config.createFromResources(Launcher.class);
+                InputStream resourceAsStream = Launcher.class.getClassLoader().getResourceAsStream("plugin-manager-default-config.yml");
+                File configFile = config.getConfigFile();
+                FileUtils.createDir(configFile.getParent());
+                Files.copy(resourceAsStream, Paths.get(configFile.getAbsolutePath()), new CopyOption[0]);
             }
             catch (IOException e)
             {
