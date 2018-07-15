@@ -454,6 +454,46 @@ public class TestListener extends IcqListener
     }
 ```
 
+### 5. 添加指令:
+
+* 写一个指令类: [看这里](https://github.com/HyDevelop/PicqBotX#%E6%8C%87%E4%BB%A4)
+* 在Main的commands()方法里添加一个实例
+
+例子:<br>
+
+指令类 (TestCommand.java):
+
+```java
+public class TestCommand implements EverywhereCommand
+{
+    @Override
+    public String run(EventMessage event, User user, String s, ArrayList<String> arrayList)
+    {
+        event.getBot().getLogger().log("收到测试指令!");
+        return "测试指令回复!";
+    }
+
+    @Override
+    public CommandProperties properties()
+    {
+        return new CommandProperties("test");
+    }
+}
+```
+
+主类:
+
+```java
+    @Override
+    public IcqCommand[] commands()
+    {
+        return new IcqCommand[]
+                {
+                        new TestCommand()
+                };
+    }
+```
+
 
 #### 如果有Bug的话, 联系我QQ: 871674895哦!
 #### 或者加群498386389
