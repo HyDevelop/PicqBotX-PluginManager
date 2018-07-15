@@ -119,7 +119,7 @@ dependencies {
 
 ### 3. 创建启动脚本文件:
 
-#### Windows:
+#### 3.1. Windows:
 
 基础启动:
 
@@ -150,7 +150,7 @@ goto loop
 
 把这段存到运行目录的start.bat文件里就行啦! (jar文件名替换成你下载的jar文件名)
 
-#### Linux:
+#### 3.2. Linux:
 
 ```sh
 while true
@@ -167,16 +167,105 @@ done
 
 ### 4. 启动:
 
-#### Windows:
+#### 4.1. Windows:
 
 * UI版Windows的话直接点开start.bat就好了!
 * 无UI版的话要cd到当前目录, 然后执行start.bat (真的有人用无UI的Windows么...
 
 注意: 不要问我`Error: Unable to access jarfile {JAR文件名}.jar`怎么解决, 仔细想想都知道怎么解决嘛...
 
-#### Linux:
+#### 4.2. Linux:
 
 * 打开控制台
 * 执行 cd {运行目录}
 * 执行 sudo chmod +x start.sh
 * 执行 ./start.sh
+
+### 5. 配置:
+
+启动第一次后, 会自动生成config.yml配置文件:
+
+```yml
+# ############################ #
+# PicqBotX 插件启动器 配置文件 #
+#     作者: Hykilpikonna       #
+# 对应版本: 1.0.0              #
+# ############################ #
+
+# 连接设置
+ConnectionSettings:
+
+  # 发送地址
+  PostURL: '127.0.0.1'
+
+  # 发送地址的端口
+  PostPort: 31091
+
+  # 监听端口 (HTTP服务器端口)
+  ListeningPort: 31092
+
+# 指令设置
+CommandSettings:
+
+  # 是否启动指令功能
+  Enable: true
+
+  # 指令前缀
+  Prefixes:
+  - 'bot -'
+  - '!'
+  - '/'
+
+  # 两个插件同时注册一个指令的话怎么办
+  #   ENABLE_LAST    : 启用最后注册的
+  #   ENABLE_ALL     : 启用所有
+  # 如果冲突的话, 可以用 /<插件名>:<指令> 来执行某个插件的指令
+  ConflictOperation: ENABLE_ALL
+
+# 插件加载设置
+PluginLoaderSettings:
+
+  # 是否启动插件加载
+  Enable: true
+
+  # 插件目录
+  PluginDir: './plugins/'
+
+# 日志设置
+LoggerSettings:
+
+  # 是否输出Debug日志
+  Debug: false
+
+  # 颜色支持级别
+  #   FORCED       : 不传入Jansi, 强制启用颜色
+  #   PASSTHROUGH  : 实际效果和FORCED一样, 传入Jansi但是不处理
+  #   PRESET_ONLY  : 只输出预设颜色, 移除RGB
+  #   DEFAULT      : 默认支持
+  #   OS_DEPENDENT : 取决于OS, 如果是Linux就用DEFAULT, 如果是Windows就用PRESET_ONLY
+  ColorSupportLevel: OS_DEPENDENT
+
+  # Log文件输出目录 (相对目录)
+  LogFileRelativePath: logs
+
+  # Log文件名
+  LogFileName: PicqBotX-Log
+```
+
+要改的话改完保存然后直接重启就行了.
+
+### 6. 插件管理:
+
+#### 6.1. 添加/移除插件:
+
+* 把构建好的插件JAR文件放到plugins文件夹里 (如果用外部导入的话必须是shaded).
+* 重启就会自动加载了
+* 移除的话先关掉, 然后把JAR包删掉, 然后启动就行了...
+
+#### 6.2. 调整优先级:
+
+* 现在还没有自动判断导入调整优先级
+* 所以... 调整优先级只能通过调整文件名
+* 文件名越靠前就先加载
+* 比如说如果插件B是插件A的类库的话
+* 那就要重命名成 `0-插件B.jar` 和 `1-插件A.jar` 来调整加载顺序了
