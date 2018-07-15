@@ -16,9 +16,6 @@ ConnectionSettings:
   # 监听端口 (HTTP服务器端口)
   ListeningPort: 31092
 
-  # 是否输出Debug消息
-  Debug: false
-
 # 指令设置
 CommandSettings:
 
@@ -44,5 +41,24 @@ PluginLoaderSettings:
   Enable: true
 
   # 插件目录
-  PluginDir: './Plugins/'
+  PluginDir: './plugins/'
 
+# 日志设置
+LoggerSettings:
+
+  # 是否输出Debug日志
+  Debug: false
+
+  # 颜色支持级别
+  #   FORCED       : 不传入Jansi, 强制启用颜色
+  #   PASSTHROUGH  : 实际效果和FORCED一样, 传入Jansi但是不处理
+  #   PRESET_ONLY  : 只输出预设颜色, 移除RGB
+  #   DEFAULT      : 默认支持
+  #   OS_DEPENDENT : 取决于OS, 如果是Linux就用DEFAULT, 如果是Windows就用PRESET_ONLY
+  ColorSupportLevel: OS_DEPENDENT
+
+  # Log文件输出目录 (相对目录)
+  LogFileRelativePath: logs
+
+  # Log文件名
+  LogFileName: PicqBotX-Log
