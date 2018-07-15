@@ -93,4 +93,30 @@ public abstract class IcqPlugin
             logger.log(String.format("%s插件 %s 已卸载!", AnsiColor.GREEN, description.getName()));
         }
     }
+
+    public InputStream getResource(String filename)
+    {
+        if (filename == null)
+        {
+            throw new IllegalArgumentException("Filename cannot be null");
+        }
+
+        try
+        {
+            URL url = getClassLoader().getResource(filename);
+
+            if (url == null)
+            {
+                return null;
+            }
+
+            URLConnection connection = url.openConnection();
+            connection.setUseCaches(false);
+            return connection.getInputStream();
+        }
+        catch (IOException ex)
+        {
+            return null;
+        }
+    }
 }
