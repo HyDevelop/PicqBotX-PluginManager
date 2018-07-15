@@ -494,6 +494,19 @@ public class TestCommand implements EverywhereCommand
     }
 ```
 
+### 6. 构建插件:
+
+#### 6.1. 全系统 - IntelliJ IDEA
+
+* 打开右边的`Maven Project`栏
+* 展开`Lifecycle`菜单
+* 点击`package`运行
+* Jar文件会构建到`target`目录下
+* 加载到服务器要用`shaded`版本, 作为API发布可以不用`shaded`
+* (不过推荐全都用`shaded`版本, 毕竟万一会有人想直接拿API的jar加载就抛class not found呢...
+
+#### 6.2. Linux - Bash
+
 
 #### 如果有Bug的话, 联系我QQ: 871674895哦!
 #### 或者加群498386389
