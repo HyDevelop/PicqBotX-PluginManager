@@ -453,3 +453,14 @@ public class TestListener extends IcqListener
                 };
     }
 ```
+
+
+#### 如果有Bug的话, 联系我QQ: 871674895哦!
+#### 或者加群498386389
+
+<br>
+
+<a name="license"></a>
+[开源条款](https://choosealicense.com/licenses/gpl-3.0/): GNU / GPL
+--------
+
