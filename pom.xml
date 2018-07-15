@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.github.HyDevelop</groupId>
             <artifactId>PicqBotX</artifactId>
-            <version>1.2.0.371</version>
+            <version>1.2.0.376</version>
         </dependency>
 
         <dependency>
@@ -72,7 +72,7 @@
         <dependency>
             <groupId>com.github.HyDevelop</groupId>
             <artifactId>HyLogger</artifactId>
-            <version>2.5.23</version>
+            <version>2.5.25</version>
         </dependency>
 
         <!-- 工具库 -->
