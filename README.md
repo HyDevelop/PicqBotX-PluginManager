@@ -344,12 +344,12 @@ LoggerSettings:
 ```
 
 这个构建配置实现了两件事情: <br>
-1. 把resources里的plugin.yml和config.yml放到构建好的JAR里面.<br>
+1. 把`resources`里的`plugin.yml`和`config.yml`放到构建好的JAR里面.<br>
 2. 把外部导入shade到JAR里面.<br>
 
-### 2. 写一个Plugin.yml
+### 2. 写一个plugin.yml
 
-* 右键src/main/resources路径, 创建一个叫plugin.yml的文件. (***必须全小写***
+* 右键`src/main/resources`路径, 创建一个叫`plugin.yml`的文件. (***必须全小写***
 * 写进去需要的信息:
 
 | 字段 | 重要性 | 代表什么 | 例子 |
@@ -364,3 +364,56 @@ name: TestPlugin
 main: cc.moecraft.icq.plugins.testplugin.Main
 ```
 
+### 3. 创建主类:
+
+* 创建一个类
+* 注意: 这个类的包位置必须和上面`plugin.yml`里面`main`字段写的一样
+* 让这个类继承`IcqPlugin`类(`extends IcqPlugin`).
+* 实现抽象方法
+* 创建完了!
+
+例子:
+
+```java
+package cc.moecraft.icq.plugins.testplugin;
+
+import cc.moecraft.icq.command.interfaces.IcqCommand;
+import cc.moecraft.icq.event.IcqListener;
+import cc.moecraft.icq.pluginmanager.plugin.IcqPlugin;
+
+public class Main extends IcqPlugin
+{
+    @Override
+    public void onEnable()
+    {
+
+    }
+
+    @Override
+    public void onDisable()
+    {
+
+    }
+
+    @Override
+    public IcqCommand[] commands()
+    {
+        return new IcqCommand[]
+                {
+                };
+    }
+
+    @Override
+    public IcqListener[] listeners()
+    {
+        return new IcqListener[]
+                {
+                };
+    }
+}
+```
+
+### 4. 添加事件监听器:
+
+* 写一个事件监听器类: [看这里](https://github.com/HyDevelop/PicqBotX#%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6)
+* 
