@@ -269,3 +269,81 @@ LoggerSettings:
 * 文件名越靠前就先加载
 * 比如说如果插件B是插件A的类库的话
 * 那就要重命名成 `0-插件B.jar` 和 `1-插件A.jar` 来调整加载顺序了
+
+<br>
+
+<a name="development"></a>
+开发插件:
+--------
+
+### 1. 配置Maven:
+
+很重要, 如果要用外部导入的话就必须用Maven.<br>
+不会Maven的话可以跳过这一步. ( 推荐先去学Maven<br>
+
+首先设置SDK级别, 因为Picq是Java 8运行的所以推荐插件也用Java 8了<br>
+
+```xml
+<properties>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+</properties>
+```
+
+然后添加导入([看这里](#maven))<br>
+然后添加构建配置:
+
+```xml
+<build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <defaultGoal>clean install</defaultGoal>
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+                <include>plugin.yml</include>
+                <include>config.yml</include>
+            </includes>
+        </resource>
+    </resources>
+
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>2.5</version>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <Main-Class>cc.moecraft.icq.pluginmanager.Launcher</Main-Class>
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>2.4.1</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <shadedArtifactAttached>true</shadedArtifactAttached>
+                <createDependencyReducedPom>false</createDependencyReducedPom>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+这个构建配置实现了两件事情: <br>
+1. 把resources里的plugin.yml和config.yml放到构建好的JAR里面.<br>
+2. 把外部导入shade到JAR里面.<br>
+
