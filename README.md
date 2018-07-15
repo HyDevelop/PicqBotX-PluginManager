@@ -347,3 +347,20 @@ LoggerSettings:
 1. 把resources里的plugin.yml和config.yml放到构建好的JAR里面.<br>
 2. 把外部导入shade到JAR里面.<br>
 
+### 2. 写一个Plugin.yml
+
+* 右键src/main/resources路径, 创建一个叫plugin.yml的文件. (***必须全小写***
+* 写进去需要的信息:
+
+| 字段 | 重要性 | 代表什么 | 例子 |
+| :------------: | :------------: | :------------: |
+| name | 必要 | 插件的名字 | TestPlugin |
+| main | 必要 | 插件的主类 | cc.moecraft.icq.plugins.testplugin.Main |
+
+例子:
+
+```yml
+name: TestPlugin
+main: cc.moecraft.icq.plugins.testplugin.Main
+```
+
