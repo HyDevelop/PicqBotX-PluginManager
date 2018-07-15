@@ -387,8 +387,6 @@ public class Main extends IcqPlugin
     public void onEnable()
     {
         // 加载插件的时候会运行这个方法
-        
-        // 把这句放在最后
         instance = this;
     }
 
