@@ -73,6 +73,7 @@ Maven 导入:
     <groupId>com.github.hydevelop</groupId>
     <artifactId>PicqBotX-PluginManager</artifactId>
     <version>1.0.0</version>
+    <scope>provided</scope>
 </dependency>
 ```
 
