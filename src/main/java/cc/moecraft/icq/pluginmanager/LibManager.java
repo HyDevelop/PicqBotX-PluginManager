@@ -29,4 +29,18 @@ public class LibManager
     {
         registeredLibTypeIndex.put(libClass, api);
     }
+
+    /**
+     * 获取一个库对象
+     * @param libClass 库类
+     * @param <T> 库类型
+     * @return 库对象
+     * @throws LibNotFoundException 未找到
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getLib(Class<T> libClass) throws LibNotFoundException
+    {
+        if (!registeredLibTypeIndex.containsKey(libClass)) throw new LibNotFoundException(libClass);
+        return (T) registeredLibTypeIndex.get(libClass);
+    }
 }
