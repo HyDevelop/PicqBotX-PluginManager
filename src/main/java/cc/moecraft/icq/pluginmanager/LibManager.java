@@ -18,4 +18,15 @@ public class LibManager
 {
     @Getter
     private Map<Class<?>, Object> registeredLibTypeIndex = new HashMap<>();
+
+    /**
+     * 将一个对象注册成一个库
+     * @param libClass 库类 (使用这个库的插件会用来查找的)
+     * @param api 库对象
+     * @param <T> 库类型
+     */
+    public <T> void registerLib(Class<T> libClass, T api)
+    {
+        registeredLibTypeIndex.put(libClass, api);
+    }
 }
