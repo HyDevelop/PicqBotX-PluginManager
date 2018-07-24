@@ -36,16 +36,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.hykilpikonna</groupId>
+            <groupId>com.github.hydevelop</groupId>
             <artifactId>HyConfigLib</artifactId>
-            <version>2.0.73-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.websocket</groupId>
-            <artifactId>javax.websocket-api</artifactId>
-            <version>1.1</version>
-            <scope>provided</scope>
+            <version>2.0.74</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.xiaoleilu/hutool-all -->
