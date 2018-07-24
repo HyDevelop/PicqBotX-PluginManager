@@ -6,9 +6,18 @@ import cc.moecraft.icq.event.IcqListener;
 import cc.moecraft.icq.pluginmanager.Launcher;
 import cc.moecraft.logger.HyLogger;
 import cc.moecraft.logger.format.AnsiColor;
+import cc.moecraft.utils.FileUtils;
 import lombok.Data;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 
 /**
  * 插件抽象Main类
@@ -69,6 +78,8 @@ public abstract class IcqPlugin
         this.dataFolder = dataFolder;
         this.classLoader = classLoader;
         this.logger = Launcher.getLoggerInstanceManager().getLoggerInstance(description.getName(), Launcher.isDebug());
+        this.config = new PluginConfig(this);
+        initConfig(classLoader);
     }
 
     private void initConfig(ClassLoader classLoader)
