@@ -28,4 +28,15 @@ public class PicqPM
     {
         return (T) Launcher.getPluginManager().getEnabledPluginsTypeIndex().get(pluginMain);
     }
+
+    /**
+     * 获取一个插件的运行实例
+     * @param pluginName 插件名
+     * @return 插件的运行实例
+     */
+    public static IcqPlugin getPlugin(String pluginName)
+    {
+        return Launcher.getPluginManager().getEnabledPlugins().get(pluginName);
+    }
+
 }
