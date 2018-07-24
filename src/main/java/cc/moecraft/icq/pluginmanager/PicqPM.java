@@ -49,4 +49,8 @@ public class PicqPM
         return Launcher.getPluginManager();
     }
 
+    public static LibManager getLibManager()
+    {
+        return Launcher.getLibManager();
+    }
 }
