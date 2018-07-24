@@ -17,4 +17,15 @@ import java.util.Map;
  */
 public class PicqPM
 {
+    /**
+     * 获取一个插件的运行实例
+     * @param pluginMain 插件的主类
+     * @param <T> 插件的类型
+     * @return 插件的主类实例
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getPlugin(Class<T> pluginMain)
+    {
+        return (T) Launcher.getPluginManager().getEnabledPluginsTypeIndex().get(pluginMain);
+    }
 }
