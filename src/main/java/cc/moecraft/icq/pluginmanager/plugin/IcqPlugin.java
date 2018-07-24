@@ -71,6 +71,30 @@ public abstract class IcqPlugin
         this.logger = Launcher.getLoggerInstanceManager().getLoggerInstance(description.getName(), Launcher.isDebug());
     }
 
+    private void initConfig(ClassLoader classLoader)
+    {
+        if (!config.getConfigFile().exists())
+        {
+            try
+            {
+                InputStream resourceAsStream = classLoader.getResourceAsStream("config.yml");
+                File configFile = config.getConfigFile();
+                FileUtils.createDir(configFile.getParent());
+                Files.copy(resourceAsStream, Paths.get(configFile.getAbsolutePath()));
+            }
+            catch (NoSuchFileException e)
+            {
+                return;
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+                return;
+            }
+        }
+        config.initialize();
+    }
+
     public final void setEnabled(final boolean enabled)
     {
         if (this.enabled == enabled) return;
