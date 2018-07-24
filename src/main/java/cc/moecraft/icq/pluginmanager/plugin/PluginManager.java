@@ -31,6 +31,7 @@ public class PluginManager
 {
     private final File pluginRootPath;
     private Map<String, IcqPlugin> enabledPlugins;
+    private Map<Class, IcqPlugin> enabledPluginsTypeIndex;
     private PluginLoader pluginLoader;
 
     public PluginManager(File pluginRootPath, PicqBotX bot)
@@ -38,6 +39,7 @@ public class PluginManager
         this.pluginRootPath = pluginRootPath;
 
         enabledPlugins = new HashMap<>();
+        enabledPluginsTypeIndex = new HashMap<>();
         pluginLoader = new PluginLoader(bot);
     }
 
@@ -62,6 +64,7 @@ public class PluginManager
                 pluginLoader.enablePlugin(plugin);
 
                 enabledPlugins.put(plugin.getDescription().getName(), plugin);
+                enabledPluginsTypeIndex.put(plugin.getClass(), plugin);
 
                 logger.log(String.format("%sJAR: %s 加载完成! %s(%s ms)", GREEN, jarFile.getName(), YELLOW,
                         Math.round(logger.timing.getMilliseconds() * 100d) / 100d));
