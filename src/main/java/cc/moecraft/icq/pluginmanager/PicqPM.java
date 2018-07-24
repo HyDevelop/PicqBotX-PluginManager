@@ -39,4 +39,9 @@ public class PicqPM
         return Launcher.getPluginManager().getEnabledPlugins().get(pluginName);
     }
 
+    public static LoggerInstanceManager getLoggerInstanceManager()
+    {
+        return Launcher.getLoggerInstanceManager();
+    }
+
 }
