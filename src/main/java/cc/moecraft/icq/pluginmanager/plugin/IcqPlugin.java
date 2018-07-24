@@ -22,16 +22,18 @@ import java.io.File;
 @Data
 public abstract class IcqPlugin
 {
-    private HyLogger logger;
-
-    private PicqBotX bot;
-
+    // 插件加载必要的部分
     private boolean enabled = false;
     private PluginLoader loader = null;
     private File file = null;
     private PluginYmlProperties description = null;
     private File dataFolder = null;
     private ClassLoader classLoader = null;
+
+    // 优化开发效率的部分
+    private HyLogger logger;
+    private PicqBotX bot;
+    private PluginConfig config;
 
     /**
      * 插件属性
