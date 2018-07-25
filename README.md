@@ -495,9 +495,32 @@ public class TestCommand implements EverywhereCommand
     }
 ```
 
-### 6. 插件配置:
+### 6. 使用配置文件:
 
-TODO!
+* 写一个默认配置文件`config.yml`放进`main/src/resources`里 (不然使用getConfig会返回null).
+* 然后就可以用了
+* 存储位置在`运行目录/plugins/插件名/config.yml`.
+
+例子: 默认配置`config.yml`:
+
+```yml
+TestBoolean1: true
+TestList1:
+- 871674895
+- 666666666
+TestList2: []
+TestKey1:
+  TestKey2: TestValue
+```
+
+例子: 从程序里访问:
+
+```java
+getConfig().getBoolean("TestBoolean1"); // 返回TestBoolean1字段的值
+getConfig().getStringList("TestList1"); // 返回TestList1字段的字符串数组
+getConfig().getStringList("TestList2"); // 返回TestList2字段的字符串数组
+getConfig().getString("TestKey1.TestKey2"); // 返回TestKey1下的TestKey2字段的值
+```
 
 ### 7. 构建插件:
 
