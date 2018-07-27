@@ -18,6 +18,8 @@
 <br>
 <br>
 
+[***查看插件列表***](./markdown/plugin-list.md)
+
 <a name="introduction"></a>
 介绍 (v1.1.0):
 --------
