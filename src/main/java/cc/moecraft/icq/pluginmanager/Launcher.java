@@ -67,8 +67,9 @@ public class Launcher
                 launcherConfig.getString("LoggerSettings.LogFileName")
         );
 
-        loggerInstanceManager = bot.getLoggerInstanceManager();
+        bot.setUseAsync(launcherConfig.getBoolean("CommandSettings.Async", true));
 
+        loggerInstanceManager = bot.getLoggerInstanceManager();
         logger = loggerInstanceManager.getLoggerInstance("Launcher", debug);
 
         libManager = new LibManager();

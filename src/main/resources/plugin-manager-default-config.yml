@@ -22,6 +22,9 @@ CommandSettings:
   # 是否启动指令功能
   Enable: true
 
+  # 是否启用异步 (实验性)
+  Async: true
+
   # 指令前缀
   Prefixes:
   - 'bot -'

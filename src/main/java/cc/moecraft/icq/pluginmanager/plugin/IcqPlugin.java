@@ -93,7 +93,7 @@ public abstract class IcqPlugin
                 FileUtils.createDir(configFile.getParent());
                 Files.copy(resourceAsStream, Paths.get(configFile.getAbsolutePath()));
             }
-            catch (NoSuchFileException e)
+            catch (NoSuchFileException | NullPointerException e)
             {
                 return;
             }
