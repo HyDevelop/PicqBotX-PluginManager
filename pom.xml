@@ -22,9 +22,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.HyDevelop</groupId>
+            <groupId>com.github.hydevelop</groupId>
             <artifactId>PicqBotX</artifactId>
-            <version>1.4.0.475</version>
+            <version>2.4.2.541</version>
         </dependency>
 
         <dependency>
