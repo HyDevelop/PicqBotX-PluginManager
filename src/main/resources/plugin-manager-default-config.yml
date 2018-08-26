@@ -71,3 +71,9 @@ LoggerSettings:
 
   # Log文件名
   LogFileName: PicqBotX-Log
+
+# 其他设置
+OtherSettings:
+
+  # 是否全局替换HyExp表达式
+  UniversalHyExpResolving: false
