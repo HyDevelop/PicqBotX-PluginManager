@@ -1,22 +1,19 @@
 package cc.moecraft.icq.pluginmanager;
 
 import cc.moecraft.icq.PicqBotX;
+import cc.moecraft.icq.accounts.BotAccount;
 import cc.moecraft.icq.exceptions.HttpServerStartFailedException;
-import cc.moecraft.icq.exceptions.InvalidSendingURLException;
-import cc.moecraft.icq.exceptions.VersionIncorrectException;
 import cc.moecraft.icq.pluginmanager.plugin.PluginManager;
 import cc.moecraft.logger.HyLogger;
 import cc.moecraft.logger.LoggerInstanceManager;
 import cc.moecraft.logger.environments.ColorSupportLevel;
 import cc.moecraft.logger.format.AnsiColor;
 import cc.moecraft.utils.FileUtils;
-import com.xiaoleilu.hutool.http.HttpException;
 import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -31,7 +28,7 @@ import java.nio.file.Paths;
 public class Launcher
 {
     @Getter
-    private static LauncherConfig launcherConfig;
+    private static LauncherConfig config;
 
     @Getter
     private static PicqBotX bot;
@@ -51,46 +48,51 @@ public class Launcher
     @Getter
     private static boolean debug;
 
-    public static void main(String[] args) throws IllegalAccessException, InstantiationException
+    public static void main(String[] args) throws IllegalAccessException, InstantiationException, InterruptedException
     {
         initializeConfig();
 
-        debug = launcherConfig.getBoolean("LoggerSettings.Debug");
-
+        debug = config.getBoolean("LoggerSettings.Debug");
         bot = new PicqBotX(
-                launcherConfig.getString("ConnectionSettings.PostURL"),
-                launcherConfig.getInt("ConnectionSettings.PostPort"),
-                launcherConfig.getInt("ConnectionSettings.ListeningPort"),
-                debug,
-                ColorSupportLevel.valueOf(launcherConfig.getString("LoggerSettings.ColorSupportLevel")),
-                launcherConfig.getString("LoggerSettings.LogFileRelativePath"),
-                launcherConfig.getString("LoggerSettings.LogFileName")
-        );
-
-        bot.setUseAsync(launcherConfig.getBoolean("CommandSettings.Async", true));
-
+                config.getInt("ConnectionSettings.ListeningPort"),
+                debug, ColorSupportLevel.valueOf(config.getString("LoggerSettings.ColorSupportLevel")),
+                config.getString("LoggerSettings.LogFileRelativePath"),
+                config.getString("LoggerSettings.LogFileName"));
+        bot.setUseAsync(config.getBoolean("CommandSettings.Async", true));
+        bot.setUniversalHyExpSupport(config.getBoolean("OtherSettings.UniversalHyExpResolving", false));
         loggerInstanceManager = bot.getLoggerInstanceManager();
         logger = loggerInstanceManager.getLoggerInstance("Launcher", debug);
-
         libManager = new LibManager();
 
-        if (launcherConfig.getBoolean("CommandSettings.Enable"))
-            bot.enableCommandManager(false, launcherConfig.getStringList("CommandSettings.Prefixes").toArray(new String[0]));
+        // 账号设置
+        try
+        {
+            for (String key : config.getKeys("Accounts"))
+                bot.getAccountManager().addAccount(new BotAccount(key, bot.getEventManager(),
+                        config.getString("Accounts." + key + ".PostURL"),
+                        config.getInt("Accounts." + key + ".PostPort")));
+        }
+        catch (NullPointerException e)
+        {
+            logger.error("配置读取失败: " + e);
+            Thread.sleep(5);
+            e.printStackTrace();
+            return;
+        }
+
+
+
+        if (config.getBoolean("CommandSettings.Enable"))
+            bot.enableCommandManager(false, config.getStringList("CommandSettings.Prefixes").toArray(new String[0]));
 
         // 注册插件
-        if (launcherConfig.getBoolean("PluginLoaderSettings.Enable")) initializePlugins(bot);
+        if (config.getBoolean("PluginLoaderSettings.Enable")) initializePlugins(bot);
 
         try
         {
             bot.startBot();
         }
-        catch (HttpException e)
-        {
-            logger.error("HTTP版本验证请求失败.");
-            logger.error("可能是因为你没有开酷Q.");
-            logger.error("也可能是config.yml配置文件里HTTP发送地址写错了");
-        }
-        catch (HttpServerStartFailedException | VersionIncorrectException | InvalidSendingURLException e)
+        catch (HttpServerStartFailedException e)
         {
             e.printStackTrace();
         }
@@ -98,16 +100,16 @@ public class Launcher
 
     public static boolean initializeConfig()
     {
-        launcherConfig = new LauncherConfig();
+        config = new LauncherConfig();
 
-        if (!launcherConfig.getConfigFile().exists())
+        if (!config.getConfigFile().exists())
         {
             try
             {
                 InputStream resourceAsStream = Launcher.class.getClassLoader().getResourceAsStream("plugin-manager-default-config.yml");
-                File configFile = launcherConfig.getConfigFile();
+                File configFile = config.getConfigFile();
                 FileUtils.createDir(configFile.getParent());
-                Files.copy(resourceAsStream, Paths.get(configFile.getAbsolutePath()), new CopyOption[0]);
+                Files.copy(resourceAsStream, Paths.get(configFile.getAbsolutePath()));
             }
             catch (IOException e)
             {
@@ -116,7 +118,7 @@ public class Launcher
             }
         }
 
-        launcherConfig.initialize();
+        config.initialize();
 
         return true;
     }
@@ -126,7 +128,7 @@ public class Launcher
         logger.timing.init();
         logger.log(AnsiColor.YELLOW + "开始初始化插件加载器 ...");
 
-        File pluginRootDir = new File(launcherConfig.getString("PluginLoaderSettings.PluginDir"));
+        File pluginRootDir = new File(config.getString("PluginLoaderSettings.PluginDir"));
 
         logger.log(AnsiColor.GREEN + "已找到插件存储路径: " + pluginRootDir.getAbsolutePath());
 
@@ -140,7 +142,7 @@ public class Launcher
         pluginManager.enableAllPlugins();
 
         // 注册事件和指令
-        if (launcherConfig.getBoolean("CommandSettings.Enable")) pluginManager.registerAllCommands(bot);
+        if (config.getBoolean("CommandSettings.Enable")) pluginManager.registerAllCommands(bot);
         pluginManager.registerAllEvents(bot);
 
         logger.log(String.format("%s插件全部加载完成! %s(总 %s ms)", AnsiColor.GREEN, AnsiColor.YELLOW, Math.round(logger.timing.getMilliseconds() * 100d) / 100d));
