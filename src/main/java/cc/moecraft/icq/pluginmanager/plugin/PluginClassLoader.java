@@ -39,9 +39,10 @@ final class PluginClassLoader extends URLClassLoader
     PluginClassLoader(PluginLoader loader, ClassLoader parent, PluginYmlProperties pluginYmlProperties, File dataFolder, File file)
             throws IOException, InvalidPluginException
     {
+        // 直接传给父类URLClassLoader加载JAR文件
         super(new URL[] {file.toURI().toURL()}, parent);
-        Validate.notNull(loader, "Loader未传入");
 
+        Validate.notNull(loader, "Loader未传入");
         this.loader = loader;
         this.pluginYmlProperties = pluginYmlProperties;
         this.dataFolder = dataFolder;
@@ -56,6 +57,7 @@ final class PluginClassLoader extends URLClassLoader
 
             try
             {
+                // 获取插件主类
                 jarClass = Class.forName(pluginYmlProperties.getMainPath(), true, this);
             }
             catch (ClassNotFoundException ex)
@@ -67,6 +69,7 @@ final class PluginClassLoader extends URLClassLoader
 
             try
             {
+                // 获取主类继承IcqPlugin父类的形式
                 pluginClass = jarClass.asSubclass(IcqPlugin.class);
             }
             catch (ClassCastException ex)
@@ -74,6 +77,7 @@ final class PluginClassLoader extends URLClassLoader
                 throw new InvalidPluginException("Main class `" + pluginYmlProperties.getMainPath() + "' does not extend IcqPlugin", ex);
             }
 
+            // 实例化插件
             plugin = pluginClass.newInstance();
             plugin.init(loader, loader.getBot(), pluginYmlProperties, dataFolder, file, this);
         }

@@ -52,10 +52,11 @@ public class PluginLoader
 
         if (!file.exists()) throw new InvalidPluginException(new FileNotFoundException("文件 " + file.getPath() + " 不存在!"));
 
+        // 从插件resource内的plugin.yml读取插件名和主类名
         final PluginYmlProperties pluginYmlProperties = getPluginYmlProperties(file);
+
         final File parentFile = file.getParentFile();
         final File dataFolder = new File(parentFile, pluginYmlProperties.getName());
-
         if (dataFolder.exists() && !dataFolder.isDirectory()) throw new InvalidPluginException(String.format(
                     "插件 %s (%s) 的数据文件夹 %s 存在而且不是路径", pluginYmlProperties.getName(), file, dataFolder));
 
@@ -63,6 +64,7 @@ public class PluginLoader
 
         try
         {
+            // 丢给PluginClassLoader加载
             loader = new PluginClassLoader(this, getClass().getClassLoader(), pluginYmlProperties, dataFolder, file);
         }
         catch (InvalidPluginException ex)
