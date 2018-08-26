@@ -7,14 +7,20 @@
 # 连接设置
 ConnectionSettings:
 
-  # 发送地址
-  PostURL: '127.0.0.1'
-
-  # 发送地址的端口
-  PostPort: 31091
-
   # 监听端口 (HTTP服务器端口)
   ListeningPort: 31092
+
+# 账号设置
+Accounts:
+
+  # 第一个账号 (这里是账号名, 可以随便写)
+  Account1:
+
+    # 发送地址
+    PostURL: '127.0.0.1'
+
+    # 发送地址的端口
+    PostPort: 31091
 
 # 指令设置
 CommandSettings:
