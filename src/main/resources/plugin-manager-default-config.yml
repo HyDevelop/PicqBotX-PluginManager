@@ -75,5 +75,11 @@ LoggerSettings:
 # 其他设置
 OtherSettings:
 
-  # 是否全局替换HyExp表达式
-  UniversalHyExpResolving: false
+  # HyExp表达式设置
+  HyExpression:
+
+    # 是否替换
+    Replace: false
+
+    # 是否安全模式
+    SafeMode: true
