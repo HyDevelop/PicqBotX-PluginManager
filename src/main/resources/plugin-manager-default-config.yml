@@ -79,7 +79,7 @@ OtherSettings:
   HyExpression:
 
     # 是否替换
-    Replace: false
+    Resolve: false
 
     # 是否安全模式
     SafeMode: true
