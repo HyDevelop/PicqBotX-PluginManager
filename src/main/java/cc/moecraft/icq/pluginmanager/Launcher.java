@@ -48,7 +48,7 @@ public class Launcher
     @Getter
     private static boolean debug;
 
-    public static void main(String[] args) throws IllegalAccessException, InstantiationException, InterruptedException
+    public static void main(String[] args) throws Exception
     {
         initializeConfig();
 
@@ -90,17 +90,10 @@ public class Launcher
         // 注册插件
         if (config.getBoolean("PluginLoaderSettings.Enable")) initializePlugins(bot);
 
-        try
-        {
-            bot.startBot();
-        }
-        catch (HttpServerStartFailedException e)
-        {
-            e.printStackTrace();
-        }
+        bot.startBot();
     }
 
-    public static boolean initializeConfig()
+    private static void initializeConfig()
     {
         config = new LauncherConfig();
 
@@ -115,17 +108,14 @@ public class Launcher
             }
             catch (IOException e)
             {
-                logger.error("错误: JAR包已损坏或运行环境错误, 无法找到yml文件");
-                return false;
+                throw new RuntimeException("错误: JAR包已损坏或运行环境错误, 无法找到yml文件");
             }
         }
 
         config.initialize();
-
-        return true;
     }
 
-    public static boolean initializePlugins(PicqBotX bot)
+    private static void initializePlugins(PicqBotX bot)
     {
         logger.timing.init();
         logger.log(AnsiColor.YELLOW + "开始初始化插件加载器 ...");
@@ -149,7 +139,5 @@ public class Launcher
 
         logger.log(String.format("%s插件全部加载完成! %s(总 %s ms)", AnsiColor.GREEN, AnsiColor.YELLOW, Math.round(logger.timing.getMilliseconds() * 100d) / 100d));
         logger.timing.clear();
-
-        return true;
     }
 }
