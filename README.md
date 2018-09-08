@@ -21,7 +21,7 @@
 [***查看插件列表***](./markdown/plugin-list.md)
 
 <a name="introduction"></a>
-介绍 (v1.3.2.124):
+介绍 (v1.3.3.129):
 --------
 
 一个基于PicqBotX QQ机器人类库的插件系统. <br>
@@ -74,7 +74,7 @@ Maven 导入:
 <dependency>
     <groupId>com.github.hydevelop</groupId>
     <artifactId>PicqBotX-PluginManager</artifactId>
-    <version>1.3.2.124</version>
+    <version>1.3.3.129</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -102,13 +102,13 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.hydevelop:PicqBotX-PluginManager:1.3.2.124'
+    implementation 'com.github.hydevelop:PicqBotX-PluginManager:1.3.3.129'
 }
 ```
 
 <!-- 每次更新都要手动改这些版本号好烦的_(:з」∠)_... -->
 
-#### [其他导入(SBT / Leiningen)](https://jitpack.io/#HyDevelop/PicqBotX-PluginManager/1.3.2.124)
+#### [其他导入(SBT / Leiningen)](https://jitpack.io/#HyDevelop/PicqBotX-PluginManager/1.3.3.129)
 
 <br>
 
@@ -192,7 +192,7 @@ done
 # ############################ #
 # PicqBotX 插件启动器 配置文件 #
 #     作者: Hykilpikonna       #
-# 对应版本: 1.3.2.124              #
+# 对应版本: 1.3.3.129              #
 # ############################ #
 
 # 连接设置
