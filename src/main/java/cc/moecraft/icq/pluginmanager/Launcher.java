@@ -58,8 +58,12 @@ public class Launcher
                 debug, ColorSupportLevel.valueOf(config.getString("LoggerSettings.ColorSupportLevel")),
                 config.getString("LoggerSettings.LogFileRelativePath"),
                 config.getString("LoggerSettings.LogFileName"));
+
         bot.setUseAsync(config.getBoolean("CommandSettings.Async", true));
-        bot.setUniversalHyExpSupport(config.getBoolean("OtherSettings.UniversalHyExpResolving", false));
+        bot.setUniversalHyExpSupport(
+                config.getBoolean("OtherSettings.HyExpression.Resolve", false),
+                config.getBoolean("OtherSettings.HyExpression.SafeMode", true));
+
         loggerInstanceManager = bot.getLoggerInstanceManager();
         logger = loggerInstanceManager.getLoggerInstance("Launcher", debug);
         libManager = new LibManager();
@@ -67,10 +71,10 @@ public class Launcher
         // 账号设置
         try
         {
-            for (String key : config.getKeys("Accounts"))
-                bot.getAccountManager().addAccount(new BotAccount(key, bot.getEventManager(),
-                        config.getString("Accounts." + key + ".PostURL"),
-                        config.getInt("Accounts." + key + ".PostPort")));
+            for (String key : config.getKeys("Accounts")) bot.getAccountManager().addAccount(new BotAccount(key,
+                    bot.getEventManager(),
+                    config.getString("Accounts." + key + ".PostURL"),
+                    config.getInt("Accounts." + key + ".PostPort")));
         }
         catch (NullPointerException e)
         {
@@ -79,8 +83,6 @@ public class Launcher
             e.printStackTrace();
             return;
         }
-
-
 
         if (config.getBoolean("CommandSettings.Enable"))
             bot.enableCommandManager(false, config.getStringList("CommandSettings.Prefixes").toArray(new String[0]));
