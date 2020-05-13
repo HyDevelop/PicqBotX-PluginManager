@@ -21,7 +21,7 @@
 [***查看插件列表***](./markdown/plugin-list.md)
 
 <a name="introduction"></a>
-介绍 (v1.3.3.129):
+介绍 (v4.15.0.134):
 --------
 
 一个基于 PicqBotX QQ 机器人类库的插件系统. <br>
@@ -74,7 +74,7 @@ Maven 导入:
 <dependency>
     <groupId>com.github.hydevelop</groupId>
     <artifactId>PicqBotX-PluginManager</artifactId>
-    <version>1.3.3.129</version>
+    <version>4.15.0.134</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -102,13 +102,13 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.hydevelop:PicqBotX-PluginManager:1.3.3.129'
+    implementation 'com.github.hydevelop:PicqBotX-PluginManager:4.15.0.134'
 }
 ```
 
 <!-- 每次更新都要手动改这些版本号好烦的_(:з」∠)_... -->
 
-#### [其他导入(SBT / Leiningen)](https://jitpack.io/#HyDevelop/PicqBotX-PluginManager/1.3.3.129)
+#### [其他导入(SBT / Leiningen)](https://jitpack.io/#HyDevelop/PicqBotX-PluginManager/4.15.0.134)
 
 <br>
 
@@ -192,7 +192,7 @@ done
 # ############################ #
 # PicqBotX 插件启动器 配置文件 #
 #     作者: Hykilpikonna       #
-# 对应版本: 1.3.3.129              #
+# 对应版本: 4.15.0.134              #
 # ############################ #
 
 # 连接设置
@@ -544,8 +544,7 @@ getConfig().getString("TestKey1.TestKey2"); // 返回 TestKey1 下的 TestKey2 �
 
 *(不要问我 bash: mvn: command not found 怎么解决...*
 
-#### 如果有 Bug 的话, 联系我 QQ: 871674895 哦!
-#### 或者加群 498386389
+#### 如果有 Bug 的话, 加群 498386389 问吧w
 
 <br>
 
