@@ -83,3 +83,5 @@ OtherSettings:
 
     # 是否安全模式
     SafeMode: true
+Access Token: ''
+Secret: ''

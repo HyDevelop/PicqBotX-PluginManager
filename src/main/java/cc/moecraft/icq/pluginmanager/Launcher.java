@@ -1,8 +1,8 @@
 package cc.moecraft.icq.pluginmanager;
 
 import cc.moecraft.icq.PicqBotX;
+import cc.moecraft.icq.PicqConfig;
 import cc.moecraft.icq.accounts.BotAccount;
-import cc.moecraft.icq.exceptions.HttpServerStartFailedException;
 import cc.moecraft.icq.pluginmanager.plugin.PluginManager;
 import cc.moecraft.logger.HyLogger;
 import cc.moecraft.logger.LoggerInstanceManager;
@@ -53,16 +53,28 @@ public class Launcher
         initializeConfig();
 
         debug = config.getBoolean("LoggerSettings.Debug");
+        /*
         bot = new PicqBotX(
                 config.getInt("ConnectionSettings.ListeningPort"),
                 debug, ColorSupportLevel.valueOf(config.getString("LoggerSettings.ColorSupportLevel")),
                 config.getString("LoggerSettings.LogFileRelativePath"),
                 config.getString("LoggerSettings.LogFileName"));
 
-        bot.setUseAsync(config.getBoolean("CommandSettings.Async", true));
-        bot.setUniversalHyExpSupport(
-                config.getBoolean("OtherSettings.HyExpression.Resolve", false),
+         */
+
+
+        PicqConfig botConfig = new PicqConfig(config.getInt("ConnectionSettings.ListeningPort"));
+        botConfig.setUseAsyncCommands(config.getBoolean("CommandSettings.Async", true));
+        botConfig.setApiAsync(config.getBoolean("CommandSettings.Async", true));
+        botConfig.setAccessToken(config.getString("Access Token"));
+        botConfig.setSecret(config.getString("Secret"));
+        bot = new PicqBotX(botConfig);
+
+
+        bot.setUniversalHyExpSupport(config.getBoolean("OtherSettings.HyExpression.Resolve", false),
                 config.getBoolean("OtherSettings.HyExpression.SafeMode", true));
+
+
 
         loggerInstanceManager = bot.getLoggerInstanceManager();
         logger = loggerInstanceManager.getLoggerInstance("Launcher", debug);
@@ -71,10 +83,7 @@ public class Launcher
         // 账号设置
         try
         {
-            for (String key : config.getKeys("Accounts")) bot.getAccountManager().addAccount(new BotAccount(key,
-                    bot.getEventManager(),
-                    config.getString("Accounts." + key + ".PostURL"),
-                    config.getInt("Accounts." + key + ".PostPort")));
+            for (String key : config.getKeys("Accounts")) bot.getAccountManager().addAccount(new BotAccount(key, bot, config.getString("Accounts." + key + ".PostURL"), config.getInt("Accounts." + key + ".PostPort")));
         }
         catch (NullPointerException e)
         {
@@ -85,8 +94,7 @@ public class Launcher
         }
 
         if (config.getBoolean("CommandSettings.Enable"))
-            bot.enableCommandManager(false, config.getStringList("CommandSettings.Prefixes").toArray(new String[0]));
-
+            bot.enableCommandManager(config.getStringList("CommandSettings.Prefixes").toArray(new String[0]));
         // 注册插件
         if (config.getBoolean("PluginLoaderSettings.Enable")) initializePlugins(bot);
 
@@ -140,4 +148,5 @@ public class Launcher
         logger.log(String.format("%s插件全部加载完成! %s(总 %s ms)", AnsiColor.GREEN, AnsiColor.YELLOW, Math.round(logger.timing.getMilliseconds() * 100d) / 100d));
         logger.timing.clear();
     }
+
 }
