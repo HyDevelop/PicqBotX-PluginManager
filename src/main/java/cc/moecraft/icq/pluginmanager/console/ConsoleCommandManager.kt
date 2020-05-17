@@ -2,7 +2,7 @@ package cc.moecraft.icq.pluginmanager.console
 
 import java.util.*
 
-class ConsoleCommandListener(var scanner: Scanner?) {
+class ConsoleCommandManager(var scanner: Scanner?) {
     var answers = HashMap<String, ConsoleCommand>()
     fun addCommand(cmd: String, command: ConsoleCommand) {
         answers[cmd.toLowerCase()] = command
@@ -34,9 +34,13 @@ class ConsoleCommandListener(var scanner: Scanner?) {
             }
             val input = line.replace("[\\s]+".toRegex(), " ")
             val args = input.split(" ".toRegex()).toTypedArray()
-            val cmd = args[0]
-            val command = answers[cmd.toLowerCase()]
-            command?.onCommand(input.replaceFirst(cmd + " ".toRegex(), "").split(" ".toRegex()).toTypedArray())
+            var cmd = args[0]
+            if (cmd.startsWith("/")) {
+                cmd = args[0].replaceFirst("/", "")
+                val command = answers[cmd.toLowerCase()]
+                command?.onCommand(input.replaceFirst("/" + cmd + " ".toRegex(), "").split(" ".toRegex()).toTypedArray())
+            }
+
         }
     }
 

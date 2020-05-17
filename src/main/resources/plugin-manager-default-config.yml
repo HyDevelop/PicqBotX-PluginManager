@@ -85,3 +85,4 @@ OtherSettings:
     SafeMode: true
 Access Token: ''
 Secret: ''
+Command Also Call Chat Events: true

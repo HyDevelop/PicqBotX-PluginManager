@@ -3,7 +3,8 @@ package cc.moecraft.icq.pluginmanager;
 import cc.moecraft.icq.PicqBotX;
 import cc.moecraft.icq.PicqConfig;
 import cc.moecraft.icq.accounts.BotAccount;
-import cc.moecraft.icq.pluginmanager.console.ConsoleCommandListener;
+import cc.moecraft.icq.pluginmanager.console.ConsoleCommandManager;
+import cc.moecraft.icq.pluginmanager.console.command.CommandReload;
 import cc.moecraft.icq.pluginmanager.console.command.CommandStop;
 import cc.moecraft.icq.pluginmanager.plugin.PluginManager;
 import cc.moecraft.logger.HyLogger;
@@ -51,7 +52,7 @@ public class Launcher
     private static boolean debug;
 
     @Getter
-    private static ConsoleCommandListener consoleCommand;
+    public static ConsoleCommandManager consoleCommandManager;
 
     public static void main(String[] args) throws Exception
     {
@@ -67,6 +68,7 @@ public class Launcher
         botConfig.setApiAsync(config.getBoolean("CommandSettings.Async", true));
         botConfig.setAccessToken(config.getString("Access Token"));
         botConfig.setSecret(config.getString("Secret"));
+        botConfig.setCommandsAlsoCallEvents(config.getBoolean("Command Also Call Chat Events"));
         bot = new PicqBotX(botConfig);
 
 
@@ -138,7 +140,7 @@ public class Launcher
         }
 
         pluginManager = new PluginManager(pluginRootDir, bot);
-        pluginManager.enableAllPlugins();
+        PluginManager.enableAllPlugins();
 
         // 注册事件和指令
         if (config.getBoolean("CommandSettings.Enable")) pluginManager.registerAllCommands(bot);
@@ -149,9 +151,11 @@ public class Launcher
     }
 
     private static void initializeConsoleCommandManager() {
-        consoleCommand = new ConsoleCommandListener(new Scanner(System.in));
-        consoleCommand.addCommand("stop", new CommandStop());
-        consoleCommand.listenInNewThread();
+        consoleCommandManager = new ConsoleCommandManager(new Scanner(System.in));
+        //Default Commands
+        consoleCommandManager.addCommand("stop", new CommandStop());
+        consoleCommandManager.addCommand("reload", new CommandReload());
+        consoleCommandManager.listenInNewThread();
     }
 
 }

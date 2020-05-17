@@ -1,7 +1,6 @@
 package cc.moecraft.icq.pluginmanager.plugin;
 
 import cc.moecraft.icq.PicqBotX;
-import cc.moecraft.icq.pluginmanager.Launcher;
 import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginException;
 import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginYmlException;
 import cc.moecraft.logger.format.AnsiColor;
@@ -33,21 +32,18 @@ import java.util.regex.Pattern;
  * @author Hykilpikonna
  */
 @Data
-public class PluginLoader
-{
-    private final Pattern[] fileFilters = new Pattern[] { Pattern.compile("\\.jar$"), };
-    private final Map<String, Class<?>> classes = new HashMap<>();
-    private final List<PluginClassLoader> loaders = new CopyOnWriteArrayList<>();
+public class PluginLoader {
+    private final Pattern[] fileFilters = new Pattern[]{Pattern.compile("\\.jar$"),};
+    private static final Map<String, Class<?>> classes = new HashMap<>();
+    private static final List<PluginClassLoader> loaders = new CopyOnWriteArrayList<>();
 
     private PicqBotX bot;
 
-    public PluginLoader(PicqBotX bot)
-    {
+    public PluginLoader(PicqBotX bot) {
         this.bot = bot;
     }
 
-    public IcqPlugin loadPlugin(final File file) throws InvalidPluginException, InvalidPluginYmlException
-    {
+    public IcqPlugin loadPlugin(final File file) throws InvalidPluginException, InvalidPluginYmlException {
         Validate.notNull(file, "插件文件对象未指定");
 
         if (!file.exists()) throw new InvalidPluginException(new FileNotFoundException("文件 " + file.getPath() + " 不存在!"));
@@ -163,14 +159,11 @@ public class PluginLoader
         }
     }
 
-    private void removeClass(String name)
-    {
+    private static void removeClass(String name) {
         Class<?> clazz = classes.remove(name);
 
-        try
-        {
-            if ((clazz != null) && (ConfigurationSerializable.class.isAssignableFrom(clazz)))
-            {
+        try {
+            if ((clazz != null) && (ConfigurationSerializable.class.isAssignableFrom(clazz))) {
                 Class<? extends ConfigurationSerializable> serializable = clazz.asSubclass(ConfigurationSerializable.class);
                 ConfigurationSerialization.unregisterClass(serializable);
             }
@@ -210,12 +203,10 @@ public class PluginLoader
         }
     }
 
-    public void disablePlugin(IcqPlugin plugin)
-    {
+    public static void disablePlugin(IcqPlugin plugin) {
         Validate.isTrue(plugin != null, "传入插件为null");
 
-        if (plugin.isEnabled())
-        {
+        if (plugin.isEnabled()) {
             String message = String.format("%s正在卸载 %s 插件 ...", AnsiColor.YELLOW, plugin.getDescription().getName());
             plugin.getLogger().log(message);
 

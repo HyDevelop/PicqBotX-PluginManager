@@ -4,9 +4,6 @@ import cc.moecraft.icq.pluginmanager.plugin.IcqPlugin;
 import cc.moecraft.icq.pluginmanager.plugin.PluginManager;
 import cc.moecraft.logger.LoggerInstanceManager;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 此类由 Hykilpikonna 在 2018/07/15 创建!
  * Created by Hykilpikonna on 2018/07/15!
@@ -26,7 +23,7 @@ public class PicqPM
     @SuppressWarnings("unchecked")
     public static <T> T getPlugin(Class<T> pluginMain)
     {
-        return (T) Launcher.getPluginManager().getEnabledPluginsTypeIndex().get(pluginMain);
+        return (T) PluginManager.getEnabledPluginsTypeIndex().get(pluginMain);
     }
 
     /**
@@ -36,7 +33,7 @@ public class PicqPM
      */
     public static IcqPlugin getPlugin(String pluginName)
     {
-        return Launcher.getPluginManager().getEnabledPlugins().get(pluginName);
+        return PluginManager.getEnabledPlugins().get(pluginName);
     }
 
     public static LoggerInstanceManager getLoggerInstanceManager()

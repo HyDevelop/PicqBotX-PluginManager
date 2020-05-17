@@ -4,12 +4,9 @@ import cc.moecraft.icq.PicqBotX;
 import cc.moecraft.icq.command.interfaces.IcqCommand;
 import cc.moecraft.icq.event.IcqListener;
 import cc.moecraft.icq.pluginmanager.Launcher;
-import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginException;
-import cc.moecraft.icq.pluginmanager.exceptions.InvalidPluginYmlException;
 import cc.moecraft.logger.HyLogger;
-import cc.moecraft.logger.format.AnsiColor;
-import com.google.common.io.PatternFilenameFilter;
 import lombok.Data;
+import lombok.Getter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,24 +24,24 @@ import static cc.moecraft.logger.format.AnsiColor.*;
  * @author Hykilpikonna
  */
 @Data
-public class PluginManager
-{
-    private final File pluginRootPath;
-    private Map<String, IcqPlugin> enabledPlugins;
-    private Map<Class, IcqPlugin> enabledPluginsTypeIndex;
-    private PluginLoader pluginLoader;
+public class PluginManager {
+    private static File pluginRootPath;
+    @Getter
+    public static Map<String, IcqPlugin> enabledPlugins;
+    @Getter
+    private static Map<Class, IcqPlugin> enabledPluginsTypeIndex;
+    @Getter
+    public static PluginLoader pluginLoader;
 
-    public PluginManager(File pluginRootPath, PicqBotX bot)
-    {
-        this.pluginRootPath = pluginRootPath;
+    public PluginManager(File pluginRootPath, PicqBotX bot) {
+        PluginManager.pluginRootPath = pluginRootPath;
 
         enabledPlugins = new HashMap<>();
         enabledPluginsTypeIndex = new HashMap<>();
         pluginLoader = new PluginLoader(bot);
     }
 
-    public void enableAllPlugins()
-    {
+    public static void enableAllPlugins() {
         ArrayList<File> jarFiles = getJarFiles();
         HyLogger logger = Launcher.getLoggerInstanceManager().getLoggerInstance(CYAN + "Launcher", Launcher.isDebug());
         logger.timing.init();
@@ -52,8 +49,7 @@ public class PluginManager
         logger.log(GREEN + "路径下一共有 " + jarFiles.size() + " 个插件JAR");
         logger.log(YELLOW + "开始加载插件 ...");
 
-        for (int i = 0; i < jarFiles.size(); i++)
-        {
+        for (int i = 0; i < jarFiles.size(); i++) {
             File jarFile = jarFiles.get(i);
 
             logger.log(YELLOW + "正在加载JAR: " + jarFile.getName() + " (" + RED + i + YELLOW + "/" + jarFiles.size() + YELLOW + ")");
@@ -75,21 +71,19 @@ public class PluginManager
                 logger.log(String.format("%sJAR: %s 加载失败! %s(%s ms)", RED, jarFile.getName(), YELLOW,
                     Math.round(logger.timing.getMilliseconds() * 100d) / 100d));
             }
-            
+
             logger.timing.reset();
         }
 
         logger.timing.clear();
     }
 
-    public ArrayList<File> getJarFiles()
-    {
+    public static ArrayList<File> getJarFiles() {
         File[] allFiles = pluginRootPath.listFiles();
         ArrayList<File> jarFiles = new ArrayList<>();
 
         assert allFiles != null;
-        for (File file : allFiles)
-        {
+        for (File file : allFiles) {
             if (file.getName().endsWith(".jar")) jarFiles.add(file);
         }
 
