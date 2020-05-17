@@ -1,65 +1,48 @@
-package cc.moecraft.icq.pluginmanager.console;
+package cc.moecraft.icq.pluginmanager.console
 
-import java.util.HashMap;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*
 
-public class ConsoleCommandListener {
-    HashMap<String, ConsoleCommand> answers = new HashMap<>();
-    Scanner scanner;
-
-
-    public void addCommand(String cmd, ConsoleCommand command) {
-        answers.put(cmd.toLowerCase(), command);
+class ConsoleCommandListener(var scanner: Scanner?) {
+    var answers = HashMap<String, ConsoleCommand>()
+    fun addCommand(cmd: String, command: ConsoleCommand) {
+        answers[cmd.toLowerCase()] = command
     }
 
-
-    public ConsoleCommandListener(Scanner scanner) {
-        this.scanner = scanner;
-
-        if (scanner == null) {
-            throw new NullPointerException("Null");
-        }
+    fun removeCommand(cmd: String, command: ConsoleCommand) {
+        answers.remove(cmd, command)
     }
 
-    public void removeCommand(String cmd, ConsoleCommand command) {
-        answers.remove(cmd, command);
+    fun replaceCommand(cmd: String, command: ConsoleCommand): ConsoleCommand? {
+        return answers.replace(cmd, command)
     }
 
-    public ConsoleCommand replaceCommand(String cmd, ConsoleCommand command) {
-        return answers.replace(cmd, command);
-    }
-
-    public void listenInNewThread() {
-        Thread t = new Thread() {
-            public void run() {
-                listen();
+    fun listenInNewThread() {
+        val t: Thread = object : Thread() {
+            override fun run() {
+                listen()
             }
-        };
-        t.start();
+        }
+        t.start()
     }
 
-
-    public void listen() {
+    fun listen() {
         while (true) {
-            String line;
-            try {
-                 line = scanner.nextLine();
-            } catch (NoSuchElementException ignored) {
-                line = "";
+            val line: String = try {
+                scanner!!.nextLine()
+            } catch (ignored: NoSuchElementException) {
+                ""
             }
-
-            String input = line.replaceAll("[\\s]+", " ");
-
-            String[] args = input.split(" ");
-            String cmd = args[0];
-
-            ConsoleCommand command = answers.get(cmd.toLowerCase());
-            if (command != null) {
-                command.onCommand(input.replaceFirst(cmd + " ", "").split(" "));
-            }
-
+            val input = line.replace("[\\s]+".toRegex(), " ")
+            val args = input.split(" ".toRegex()).toTypedArray()
+            val cmd = args[0]
+            val command = answers[cmd.toLowerCase()]
+            command?.onCommand(input.replaceFirst(cmd + " ".toRegex(), "").split(" ".toRegex()).toTypedArray())
         }
     }
 
+    init {
+        if (scanner == null) {
+            throw NullPointerException("Null")
+        }
+    }
 }

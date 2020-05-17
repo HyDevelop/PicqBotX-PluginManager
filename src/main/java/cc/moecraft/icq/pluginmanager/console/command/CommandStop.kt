@@ -1,12 +1,12 @@
-package cc.moecraft.icq.pluginmanager.console.command;
+package cc.moecraft.icq.pluginmanager.console.command
 
-import cc.moecraft.icq.pluginmanager.Launcher;
-import cc.moecraft.icq.pluginmanager.console.ConsoleCommand;
+import cc.moecraft.icq.pluginmanager.Launcher
+import cc.moecraft.icq.pluginmanager.console.ConsoleCommand
+import kotlin.system.exitProcess
 
-public class CommandStop implements ConsoleCommand {
-    @Override
-    public void onCommand(String[] args) {
-        Launcher.logger.warning("退出 PicqBotX 中。。。。。");
-        System.exit(0);
+class CommandStop : ConsoleCommand {
+    override fun onCommand(args: Array<String?>?) {
+        Launcher.logger.warning("退出 PicqBotX 中。。。。。")
+        exitProcess(0)
     }
 }

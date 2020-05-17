@@ -1,5 +1,5 @@
-package cc.moecraft.icq.pluginmanager.console;
+package cc.moecraft.icq.pluginmanager.console
 
-public interface ConsoleCommand {
-    void onCommand(String[] args);
+interface ConsoleCommand {
+    fun onCommand(args: Array<String?>?)
 }
