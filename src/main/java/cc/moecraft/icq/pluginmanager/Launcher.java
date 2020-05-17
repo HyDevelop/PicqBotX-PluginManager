@@ -3,10 +3,11 @@ package cc.moecraft.icq.pluginmanager;
 import cc.moecraft.icq.PicqBotX;
 import cc.moecraft.icq.PicqConfig;
 import cc.moecraft.icq.accounts.BotAccount;
+import cc.moecraft.icq.pluginmanager.console.ConsoleCommandListener;
+import cc.moecraft.icq.pluginmanager.console.command.CommandStop;
 import cc.moecraft.icq.pluginmanager.plugin.PluginManager;
 import cc.moecraft.logger.HyLogger;
 import cc.moecraft.logger.LoggerInstanceManager;
-import cc.moecraft.logger.environments.ColorSupportLevel;
 import cc.moecraft.logger.format.AnsiColor;
 import cc.moecraft.utils.FileUtils;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 /**
  * 此类由 Hykilpikonna 在 2018/06/21 创建!
@@ -48,20 +50,17 @@ public class Launcher
     @Getter
     private static boolean debug;
 
+    @Getter
+    private static ConsoleCommandListener consoleCommand;
+
     public static void main(String[] args) throws Exception
     {
+        //Console
+        initializeConsoleCommandManager();
+
         initializeConfig();
 
         debug = config.getBoolean("LoggerSettings.Debug");
-        /*
-        bot = new PicqBotX(
-                config.getInt("ConnectionSettings.ListeningPort"),
-                debug, ColorSupportLevel.valueOf(config.getString("LoggerSettings.ColorSupportLevel")),
-                config.getString("LoggerSettings.LogFileRelativePath"),
-                config.getString("LoggerSettings.LogFileName"));
-
-         */
-
 
         PicqConfig botConfig = new PicqConfig(config.getInt("ConnectionSettings.ListeningPort"));
         botConfig.setUseAsyncCommands(config.getBoolean("CommandSettings.Async", true));
@@ -147,6 +146,12 @@ public class Launcher
 
         logger.log(String.format("%s插件全部加载完成! %s(总 %s ms)", AnsiColor.GREEN, AnsiColor.YELLOW, Math.round(logger.timing.getMilliseconds() * 100d) / 100d));
         logger.timing.clear();
+    }
+
+    private static void initializeConsoleCommandManager() {
+        consoleCommand = new ConsoleCommandListener(new Scanner(System.in));
+        consoleCommand.addCommand("stop", new CommandStop());
+        consoleCommand.listenInNewThread();
     }
 
 }
