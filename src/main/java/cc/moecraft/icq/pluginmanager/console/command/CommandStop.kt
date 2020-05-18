@@ -5,7 +5,7 @@ import cc.moecraft.icq.pluginmanager.console.ConsoleCommand
 import kotlin.system.exitProcess
 
 class CommandStop : ConsoleCommand {
-    override fun onCommand(args: Array<String?>?) {
+    override fun onCommand(args: Array<String>) {
         Launcher.logger.warning("退出 PicqBotX 中。。。。。")
         exitProcess(0)
     }

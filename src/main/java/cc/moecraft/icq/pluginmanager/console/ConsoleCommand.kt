@@ -4,5 +4,5 @@ interface ConsoleCommand {
     /**
      * @param args Arguments
      */
-    fun onCommand(args: Array<String?>?)
+    fun onCommand(args: Array<String>)
 }

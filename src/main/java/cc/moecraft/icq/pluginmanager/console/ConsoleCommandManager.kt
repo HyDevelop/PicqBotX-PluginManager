@@ -53,18 +53,22 @@ class ConsoleCommandManager(var scanner: Scanner?) {
     }
 
     /**
-     * @param cmd Run Command
+     * @param command_input Run Command
      */
 
-    fun dispatchCommand(cmd: String) {
-        val args = cmd.split(" ".toRegex()).toTypedArray()
-        var cmd = args[0]
-        if (cmd.startsWith("/")) {
-            cmd = args[0].replaceFirst("/", "")
+    fun dispatchCommand(command_input: String) {
+        val args = command_input.split(" ").toTypedArray()
+        var cmd_start = args[0]
+        if (cmd_start.startsWith("/")) {
+            Launcher.logger.log("Console issued command: $command_input")
+            val cmd = cmd_start.replaceFirst("/", "")
             val command = answers[cmd.toLowerCase()]
-            command?.onCommand(cmd.replaceFirst("/" + cmd + " ".toRegex(), "").split(" ".toRegex()).toTypedArray())
+            if (command != null) {
+                val arg: Array<String> = command_input.replaceFirst("/$cmd_start", "").split(" ").toTypedArray()
+                command.onCommand(arg)
+            }
         }
-        Launcher.getLogger().log("Console issued command: $cmd")
+
     }
 
     init {
