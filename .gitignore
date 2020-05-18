@@ -2,3 +2,4 @@
 PicqBotX-PluginManager.iml
 *.log
 target/*
+run/*

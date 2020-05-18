@@ -4,6 +4,7 @@ import cc.moecraft.icq.PicqBotX;
 import cc.moecraft.icq.command.interfaces.IcqCommand;
 import cc.moecraft.icq.event.IcqListener;
 import cc.moecraft.icq.pluginmanager.Launcher;
+import cc.moecraft.icq.pluginmanager.console.ConsoleCommandManager;
 import cc.moecraft.logger.HyLogger;
 import cc.moecraft.logger.format.AnsiColor;
 import cc.moecraft.utils.FileUtils;
@@ -14,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
@@ -43,13 +43,15 @@ public abstract class IcqPlugin
     private HyLogger logger;
     private PicqBotX bot;
     private PluginConfig config;
+    //Console
+    private ConsoleCommandManager consoleCommandManager;
 
     /**
      * 插件属性
+     *
      * @return 插件属性对象
      */
-    public PluginProperties properties()
-    {
+    public PluginProperties properties() {
         return new PluginProperties(commands(), listeners());
     }
 
@@ -78,6 +80,7 @@ public abstract class IcqPlugin
         this.dataFolder = dataFolder;
         this.classLoader = classLoader;
         this.logger = Launcher.getLoggerInstanceManager().getLoggerInstance(description.getName(), Launcher.isDebug());
+        this.consoleCommandManager = Launcher.getConsoleCommandManager();
         this.config = new PluginConfig(this);
         initConfig(classLoader);
     }

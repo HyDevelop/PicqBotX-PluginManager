@@ -21,7 +21,7 @@
 [***查看插件列表***](./markdown/plugin-list.md)
 
 <a name="introduction"></a>
-介绍 (v4.15.0.134):
+介绍 (v4.15.0.148):
 --------
 
 一个基于 PicqBotX QQ 机器人类库的插件系统. <br>
@@ -74,7 +74,7 @@ Maven 导入:
 <dependency>
     <groupId>com.github.hydevelop</groupId>
     <artifactId>PicqBotX-PluginManager</artifactId>
-    <version>4.15.0.134</version>
+    <version>4.15.0.148</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -102,13 +102,13 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation 'com.github.hydevelop:PicqBotX-PluginManager:4.15.0.134'
+    implementation 'com.github.hydevelop:PicqBotX-PluginManager:4.15.0.148'
 }
 ```
 
 <!-- 每次更新都要手动改这些版本号好烦的_(:з」∠)_... -->
 
-#### [其他导入(SBT / Leiningen)](https://jitpack.io/#HyDevelop/PicqBotX-PluginManager/4.15.0.134)
+#### [其他导入(SBT / Leiningen)](https://jitpack.io/#HyDevelop/PicqBotX-PluginManager/4.15.0.148)
 
 <br>
 
@@ -192,7 +192,7 @@ done
 # ############################ #
 # PicqBotX 插件启动器 配置文件 #
 #     作者: Hykilpikonna       #
-# 对应版本: 4.15.0.134              #
+# 对应版本: 4.15.0.148              #
 # ############################ #
 
 # 连接设置
@@ -523,6 +523,7 @@ getConfig().getStringList("TestList1"); // 返回 TestList1 字段的字符串�
 getConfig().getStringList("TestList2"); // 返回 TestList2 字段的字符串数组
 getConfig().getString("TestKey1.TestKey2"); // 返回 TestKey1 下的 TestKey2 字段的值
 ```
+[**Console Command 例子**](./markdown/Console%20Command.md)
 
 ### 7. 构建插件:
 
