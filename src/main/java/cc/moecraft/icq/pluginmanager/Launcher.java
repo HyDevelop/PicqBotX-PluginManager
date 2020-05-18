@@ -56,6 +56,7 @@ public class Launcher
 
     public static void main(String[] args) throws Exception
     {
+
         //Console
         initializeConsoleCommandManager();
 
@@ -100,6 +101,7 @@ public class Launcher
         if (config.getBoolean("PluginLoaderSettings.Enable")) initializePlugins(bot);
 
         bot.startBot();
+
     }
 
     private static void initializeConfig()

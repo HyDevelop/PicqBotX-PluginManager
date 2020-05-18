@@ -1,5 +1,6 @@
 package cc.moecraft.icq.pluginmanager.console
 
+import cc.moecraft.icq.pluginmanager.Launcher
 import java.util.*
 
 
@@ -47,15 +48,23 @@ class ConsoleCommandManager(var scanner: Scanner?) {
                 ""
             }
             val input = line.replace("[\\s]+".toRegex(), " ")
-            val args = input.split(" ".toRegex()).toTypedArray()
-            var cmd = args[0]
-            if (cmd.startsWith("/")) {
-                cmd = args[0].replaceFirst("/", "")
-                val command = answers[cmd.toLowerCase()]
-                command?.onCommand(input.replaceFirst("/" + cmd + " ".toRegex(), "").split(" ".toRegex()).toTypedArray())
-            }
-
+            dispatchCommand(input)
         }
+    }
+
+    /**
+     * @param cmd Run Command
+     */
+
+    fun dispatchCommand(cmd: String) {
+        val args = cmd.split(" ".toRegex()).toTypedArray()
+        var cmd = args[0]
+        if (cmd.startsWith("/")) {
+            cmd = args[0].replaceFirst("/", "")
+            val command = answers[cmd.toLowerCase()]
+            command?.onCommand(cmd.replaceFirst("/" + cmd + " ".toRegex(), "").split(" ".toRegex()).toTypedArray())
+        }
+        Launcher.getLogger().log("Console issued command: $cmd")
     }
 
     init {
