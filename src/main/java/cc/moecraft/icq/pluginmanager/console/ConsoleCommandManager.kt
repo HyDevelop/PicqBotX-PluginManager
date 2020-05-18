@@ -2,16 +2,30 @@ package cc.moecraft.icq.pluginmanager.console
 
 import java.util.*
 
+
 class ConsoleCommandManager(var scanner: Scanner?) {
     var answers = HashMap<String, ConsoleCommand>()
+
+    /**
+     * @param cmd Command Name
+     * @param command Console Command Class
+     */
     fun addCommand(cmd: String, command: ConsoleCommand) {
         answers[cmd.toLowerCase()] = command
     }
 
+    /**
+     * @param cmd Command Name
+     * @param command Console Command Class
+     */
     fun removeCommand(cmd: String, command: ConsoleCommand) {
         answers.remove(cmd, command)
     }
 
+    /**
+     * @param cmd Command Name
+     * @param command Console Command Class
+     */
     fun replaceCommand(cmd: String, command: ConsoleCommand): ConsoleCommand? {
         return answers.replace(cmd, command)
     }
