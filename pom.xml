@@ -6,7 +6,7 @@
 
     <groupId>cc.moecraft.icq</groupId>
     <artifactId>PicqBotX-PluginManager</artifactId>
-    <version>4.15.0.148</version>
+    <version>4.15.0.149</version>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
