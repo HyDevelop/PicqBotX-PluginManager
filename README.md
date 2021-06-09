@@ -508,8 +508,8 @@ public class TestCommand implements EverywhereCommand
 ```yml
 TestBoolean1: true
 TestList1:
-- 871674895
 - 666666666
+- 999999999
 TestList2: []
 TestKey1:
   TestKey2: TestValue
